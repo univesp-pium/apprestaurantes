@@ -1,0 +1,103 @@
+**users**
+- id
+- address_id*
+- name
+- email
+- password
+- phone
+- cpf
+
+**restaurants**
+- id
+- address_id
+- name
+- email
+- description
+- cnpj
+- social_reason
+- fantasy_name
+
+**restaurant_images**
+- id
+- restaurant_id
+- website_url
+- order
+- active
+
+**orders**
+- id
+- restaurant_id
+- discount_percentage
+- user_id
+- total_price
+- date_time
+- table_id
+
+**order_status**
+- id
+- order_id
+- status_id
+- date_time
+
+**status**
+- id
+- name
+- active
+
+**product_orders**
+- id
+- product_id
+- order_id
+- quantity
+- subtotal
+
+**products**
+- id
+- restaurant_id
+- category_id
+- title
+- description
+- price
+- available_quantity
+- discount_percentage
+- active
+
+**categorories**
+- id
+- restaurant_id
+- name
+- active
+
+**product_images**
+- id
+- product_id
+- cover
+- active
+- order
+- url
+
+**tables**
+- id
+- restaurant_id
+- capacity *(seating capacity)*
+- qr_code
+- status *(available, reserved, occupied)*
+- active
+
+**addresses**
+- id
+- city_id
+- street
+- neighborhood
+- zip_code (CEP)
+- complement
+
+**cities**
+- id
+- name
+- state_id
+
+**states**
+- id
+- abbreviation (UF)
+- name
