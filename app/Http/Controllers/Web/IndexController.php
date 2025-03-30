@@ -8,6 +8,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return 'produtos';
+        return redirect()->route('products.index');
     }
 }

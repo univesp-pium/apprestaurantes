@@ -17,7 +17,7 @@
                     <div class="login-e-cadastro">LOGIN E CADASTRO</div>
                     <div class="acompanhamento-de-pedidos">ACOMPANHAMENTO DE PEDIDOS</div>
                 </div>
-                <img src="web/web/images/cart.svg" alt="carrinho">
+                <img src="web/images/cart.svg" alt="carrinho">
             </div>
 
             <!-- Banner -->
