@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+        return view('web.auth.login');
     }
 
     public function login_action(Request $request)
@@ -35,11 +36,11 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('auth.register');
+        return view('web.auth.register');
     }
     public function register_action(Request $request)
     {
         dd($request->all());
-        return view('auth.register');
+        return view('web.auth.register');
     }
 }
