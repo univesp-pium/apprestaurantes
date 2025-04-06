@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão do Pedido - Açougue Premium</title>
+  
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="D:\Programa\Programação\apprestaurantes\apprestaurantes\confirmation.css">
+  
+</head>
+<body>
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <nav class="user-links">
+        <a href="index.html" class="user-link">
+          <i class="fas fa-arrow-left"></i> Voltar à Loja
+        </a>
+      </nav>
+      
+      <a href="index.html" class="logo">
+        <h1>Açougue Premium</h1>
+      </a>
+    </header>
+    
+    <!-- Conteúdo Principal - Revisão -->
+    <main class="review-section">
+      <div class="review-card">
+        <h2 class="review-title">Revise seu Pedido</h2>
+        <p class="review-subtitle">Confira todas as informações antes de finalizar sua compra</p>
+        
+        <!-- Informações do Cliente -->
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fas fa-user"></i>
+            <span>Dados Pessoais</span>
+            <button class="edit-btn" onclick="toggleEdit('personal-info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          
+          <div class="info-grid" id="personal-info">
+            <div class="info-item">
+              <div class="info-label">Nome Completo</div>
+              <div class="info-value" id="fullName-value">João da Silva</div>
+              <input type="text" class="form-control" id="fullName-edit" value="João da Silva" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">E-mail</div>
+              <div class="info-value" id="email-value">joao.silva@email.com</div>
+              <input type="email" class="form-control" id="email-edit" value="joao.silva@email.com" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Telefone</div>
+              <div class="info-value" id="phone-value">(15) 99999-9999</div>
+              <input type="tel" class="form-control" id="phone-edit" value="(15) 99999-9999" style="display: none;">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Endereço de Entrega -->
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Endereço de Entrega</span>
+            <button class="edit-btn" onclick="toggleEdit('address-info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          
+          <div class="info-grid" id="address-info">
+            <div class="info-item">
+              <div class="info-label">Rua</div>
+              <div class="info-value" id="street-value">Rua das Carnes</div>
+              <input type="text" class="form-control" id="street-edit" value="Rua das Carnes" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Número</div>
+              <div class="info-value" id="number-value">123</div>
+              <input type="text" class="form-control" id="number-edit" value="123" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Bairro</div>
+              <div class="info-value" id="neighborhood-value">Centro</div>
+              <input type="text" class="form-control" id="neighborhood-edit" value="Centro" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Complemento</div>
+              <div class="info-value" id="complement-value">Apto 101</div>
+              <input type="text" class="form-control" id="complement-edit" value="Apto 101" style="display: none;">
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Cidade/Estado</div>
+              <div class="info-value">Sorocaba/SP</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Itens do Pedido -->
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fas fa-shopping-basket"></i>
+            <span>Itens do Pedido</span>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Preço</th>
+                  <th>Quantidade</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Produto">
+                    <div class="product-info">
+                      <img src="images/churrasco-10.png" alt="Contra Filé para churrasco" class="product-image">
+                      <div>
+                        <div class="product-name">Contra Filé 500g</div>
+                        <div class="product-code">Cód: CF-2023</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-label="Preço">R$ 29,99</td>
+                  <td data-label="Quantidade">
+                    <input type="number" class="quantity-input" value="1" min="1">
+                  </td>
+                  <td data-label="Total">R$ 29,99</td>
+                </tr>
+                <tr>
+                  <td data-label="Produto">
+                    <div class="product-info">
+                      <img src="images/bifes-10.png" alt="Coxão Mole" class="product-image">
+                      <div>
+                        <div class="product-name">Coxão Mole 500g</div>
+                        <div class="product-code">Cód: CM-2023</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-label="Preço">R$ 29,99</td>
+                  <td data-label="Quantidade">
+                    <input type="number" class="quantity-input" value="2" min="1">
+                  </td>
+                  <td data-label="Total">R$ 59,98</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Resumo do Pedido -->
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fas fa-receipt"></i>
+            <span>Resumo do Pedido</span>
+          </div>
+          
+          <div class="order-summary">
+            <div class="summary-row">
+              <span>Subtotal (2 itens):</span>
+              <span>R$ 89,97</span>
+            </div>
+            <div class="summary-row">
+              <span>Frete:</span>
+              <span>R$ 12,50</span>
+            </div>
+            <div class="summary-row">
+              <span>Desconto:</span>
+              <span>-R$ 0,00</span>
+            </div>
+            <div class="summary-row total-row">
+              <span>Total:</span>
+              <span class="total-value">R$ 102,47</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Botões de Ação -->
+        <div class="action-buttons">
+          <a href="https://wa.me/5515999999999?text=Olá,%20tenho%20dúvidas%20sobre%20meu%20pedido" class="btn btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+          </a>
+          
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn btn-secondary" onclick="window.location.href='carrinho.html'">
+              <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+            <button class="btn btn-primary" onclick="confirmOrder()">
+              <i class="fas fa-check"></i> Confirmar Pedido
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de Agradecimento -->
+  <div class="thank-you-modal" id="thankYouModal">
+    <div class="thank-you-content">
+      <button class="close-modal" onclick="closeThankYouModal()">&times;</button>
+      <div class="thank-you-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2 class="thank-you-title">Pedido Confirmado!</h2>
+      <p class="thank-you-message">
+        Obrigado por comprar conosco! Seu pedido foi confirmado e já está sendo preparado.
+      </p>
+      <!-- Espaço para a imagem do boi -->
+      <img src="c:\Users\jose8\OneDrive\Desktop\boi.jfif" alt="Obrigado pela compra" class="thank-you-image" id="thankYouImage">
+      <button class="btn btn-primary" onclick="closeThankYouModal()">
+        <i class="fas fa-home"></i> Voltar à Página Inicial
+      </button>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Sobre Nós</h3>
+        <ul>
+          <li><a href="#">Nossa História</a></li>
+          <li><a href="#">Qualidade</a></li>
+          <li><a href="#">Fazendas Parceiras</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Atendimento</h3>
+        <ul>
+          <li><a href="#">Central de Ajuda</a></li>
+          <li><a href="#">Política de Entrega</a></li>
+          <li><a href="#">Fale Conosco</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Institucional</h3>
+        <ul>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contato</h3>
+        <ul>
+          <li>Sorocaba/SP</li>
+          <li>contato@acouguepremium.com.br</li>
+          <li>(15) 3333-3333</li>
+        </ul>
+        
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Função para alternar entre visualização e edição
+    function toggleEdit(sectionId) {
+      const section = document.getElementById(sectionId);
+      const inputs = section.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
+      const values = section.querySelectorAll('.info-value');
+      
+      // Verifica se já está em modo de edição
+      const isEditing = inputs[0].style.display !== 'none';
+      
+      if (isEditing) {
+        // Sair do modo de edição - salvar alterações
+        inputs.forEach((input, index) => {
+          values[index].textContent = input.value;
+          input.style.display = 'none';
+          values[index].style.display = 'block';
+        });
+      } else {
+        // Entrar no modo de edição
+        inputs.forEach((input, index) => {
+          input.style.display = 'block';
+          values[index].style.display = 'none';
+        });
+      }
+    }
+    
+    // Função para confirmar o pedido
+    function confirmOrder() {
+      // Adicionar lógica para enviar os dados do pedido
+      // Por enquanto, apenas mostra o modal de agradecimento
+      document.getElementById('thankYouModal').style.display = 'flex';
+      
+      // Role para o topo para ver o modal
+      window.scrollTo(0, 0);
+    }
+    
+    // Função para fechar o modal de agradecimento
+    function closeThankYouModal() {
+      document.getElementById('thankYouModal').style.display = 'none';
+      // Redirecionar para a página inicial
+      window.location.href = 'index.html';
+    }
+    
+
+  </script>
+</body>
+</html>
