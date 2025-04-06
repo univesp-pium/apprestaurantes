@@ -4,30 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Login - Açougue Premium</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('web/assets/css/login.css') }}">
+
 </head>
 
 <body>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <nav class="user-links">
+                <a href="index.html" class="user-link">VOLTAR À LOJA</a>
+            </nav>
 
-    <form action="{{ route('auth.login_action') }}" method="post">
+            <a href="index.html" class="logo">
+                <h1>Açougue Premium</h1>
+            </a>
+        </header>
 
-        @csrf
+        <!-- Conteúdo Principal - Login -->
+        <main class="auth-section">
+            <div class="auth-card">
+                <h2 class="auth-title">Login</h2>
 
-        <div>
-            <label for="email">E-mail</label>
-            <input type="email" name="email" id="email">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" id="email" class="form-control" required placeholder="seu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="password" class="form-control" required placeholder="••••••••">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Entrar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Não tem uma conta? <a href="cadastro.html" class="auth-link">Cadastre-se</a></p>
+                    <p><a href="#" class="auth-link">Esqueceu sua senha?</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Sobre Nós</h3>
+                <ul>
+                    <li><a href="#">Nossa História</a></li>
+                    <li><a href="#">Qualidade</a></li>
+                    <li><a href="#">Fazendas Parceiras</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Atendimento</h3>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Entrega</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Institucional</h3>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <ul>
+                    <li>Sorocaba/SP</li>
+                    <li>contato@acouguepremium.com.br</li>
+                    <li>(15) 3333-3333</li>
+                </ul>
+
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label for="password">Senha</label>
-            <input type="password" name="password" id="password">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
         </div>
+    </footer>
 
-        <button type="submit">Entrar</button>
-
-    </form>
-
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Adicionar a lógica de login
+            alert('Login realizado com sucesso! Redirecionando...');
+            window.location.href = 'index.html';
+        });
+    </script>
 </body>
 
 </html>
