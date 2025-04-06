@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho de Compras - Açougue Premium</title>
+  <meta name="description" content="Finalize seu pedido de carnes premium no Açougue Premium">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <nav class="user-links">
+        <a href="#" class="user-link">
+          <i class="fas fa-user"></i> Login/Cadastro
+        </a>
+        <a href="#" class="user-link">
+          <i class="fas fa-truck"></i> Acompanhar Pedido
+        </a>
+      </nav>
+      
+      <a href="index.html" class="cart-icon-link">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">3</span>
+      </a>
+    </header>
+    
+    <!-- Conteúdo Principal - Carrinho -->
+    <main class="cart-container">
+      <div class="cart-header">
+        <h1 class="cart-title">
+          <i class="fas fa-shopping-basket"></i> SEU CARRINHO
+        </h1>
+        <span class="item-count">3 itens</span>
+      </div>
+      
+      <!-- Tabela de Itens -->
+      <div class="table-responsive">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Preço</th>
+              <th>Quantidade</th>
+              <th>Preferências</th>
+              <th>Total</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Item 1 - Contra Filé -->
+            <tr class="cart-item">
+              <td class="product-cell">
+                <div class="product-info">
+                  <img src="images/churrasco-10.png" alt="Contra Filé para churrasco" class="product-image">
+                  <div>
+                    <h3 class="product-name">Contra Filé 500g</h3>
+                    <span class="product-code">Cód: CF-2023</span>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="price-cell">
+                <span class="product-price">R$ 29,99</span>
+              </td>
+              
+              <td class="quantity-cell">
+                <div class="quantity-control">
+                  <button class="quantity-btn minus" aria-label="Reduzir quantidade">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <input type="number" class="quantity-input" value="1" min="1" aria-label="Quantidade">
+                  <button class="quantity-btn plus" aria-label="Aumentar quantidade">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </td>
+              
+              <td class="options-cell">
+                <div class="product-options">
+                  <div class="option-group">
+                    <span class="option-label">Amaciar:</span>
+                    <span class="preference preference-yes">
+                      <i class="fas fa-check"></i> Sim
+                    </span>
+                  </div>
+                  
+                  <div class="option-group">
+                    <span class="option-label">Embalagem:</span>
+                    <span class="preference preference-no">
+                      <i class="fas fa-times"></i> Não
+                    </span>
+                  </div>
+                  
+                  <div class="option-group">
+                    <span class="option-label">Corte:</span>
+                    <select class="option-select">
+                      <option>Bifes grossos</option>
+                      <option>Bifes finos</option>
+                      <option>Peça inteira</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="total-cell">
+                <span class="item-total">R$ 29,99</span>
+              </td>
+              
+              <td class="actions-cell">
+                <button class="remove-btn" aria-label="Remover item">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- Item 2 - Coxão Mole -->
+            <tr class="cart-item">
+              <td class="product-cell">
+                <div class="product-info">
+                  <img src="images/bifes-10.png" alt="Coxão Mole" class="product-image">
+                  <div>
+                    <h3 class="product-name">Coxão Mole 500g</h3>
+                    <span class="product-code">Cód: CM-2023</span>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="price-cell">
+                <span class="product-price">R$ 29,99</span>
+              </td>
+              
+              <td class="quantity-cell">
+                <div class="quantity-control">
+                  <button class="quantity-btn minus" aria-label="Reduzir quantidade">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <input type="number" class="quantity-input" value="2" min="1" aria-label="Quantidade">
+                  <button class="quantity-btn plus" aria-label="Aumentar quantidade">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </td>
+              
+              <td class="options-cell">
+                <div class="product-options">
+                  <div class="option-group">
+                    <span class="option-label">Amaciar:</span>
+                    <span class="preference preference-no">
+                      <i class="fas fa-times"></i> Não
+                    </span>
+                  </div>
+                  
+                  <div class="option-group">
+                    <span class="option-label">Embalagem:</span>
+                    <span class="preference preference-yes">
+                      <i class="fas fa-check"></i> Sim
+                    </span>
+                  </div>
+                  
+                  <div class="option-group">
+                    <span class="option-label">Corte:</span>
+                    <select class="option-select">
+                      <option>Peça inteira</option>
+                      <option>Bifes grossos</option>
+                      <option>Bifes finos</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="total-cell">
+                <span class="item-total">R$ 59,98</span>
+              </td>
+              
+              <td class="actions-cell">
+                <button class="remove-btn" aria-label="Remover item">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Resumo do Pedido -->
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span class="summary-label">Subtotal (2 itens):</span>
+          <span class="summary-value">R$ 89,97</span>
+        </div>
+        
+        <div class="summary-row">
+          <span class="summary-label">Frete:</span>
+          <span class="summary-value">R$ 12,50</span>
+        </div>
+        
+        <div class="summary-row">
+          <span class="summary-label">Desconto:</span>
+          <span class="summary-value discount">-R$ 0,00</span>
+        </div>
+        
+        <div class="summary-row total-row">
+          <span class="summary-label">Total:</span>
+          <span class="summary-value total-value">R$ 102,47</span>
+        </div>
+        
+        <button class="checkout-btn">
+          <i class="fas fa-lock"></i> FINALIZAR COMPRA
+        </button>
+        
+        <div class="continue-shopping">
+          <a href="produtos.html" class="continue-link">
+            <i class="fas fa-arrow-left"></i> Continuar comprando
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 class="footer-title">Sobre Nós</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-history"></i> Nossa História</a></li>
+          <li><a href="#"><i class="fas fa-award"></i> Qualidade</a></li>
+          <li><a href="#"><i class="fas fa-tractor"></i> Fazendas Parceiras</a></li>
+          <li><a href="#"><i class="fas fa-leaf"></i> Sustentabilidade</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Atendimento</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-question-circle"></i> Central de Ajuda</a></li>
+          <li><a href="#"><i class="fas fa-truck"></i> Política de Entrega</a></li>
+          <li><a href="#"><i class="fas fa-exchange-alt"></i> Trocas e Devoluções</a></li>
+          <li><a href="#"><i class="fas fa-headset"></i> Fale Conosco</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Institucional</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-file-alt"></i> Termos de Uso</a></li>
+          <li><a href="#"><i class="fas fa-lock"></i> Política de Privacidade</a></li>
+          <li><a href="#"><i class="fas fa-briefcase"></i> Trabalhe Conosco</a></li>
+          <li><a href="#"><i class="fas fa-handshake"></i> Fornecedores</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Contato</h3>
+        <address class="footer-address">
+          <p><i class="fas fa-map-marker-alt"></i> Rua das Carnes, 123 - Centro</p>
+          <p>São Paulo - SP, CEP: 01000-000</p>
+          <p><i class="fas fa-envelope"></i> contato@acouguepremium.com.br</p>
+          <p><i class="fas fa-phone-alt"></i> (11) 9999-9999</p>
+        </address>
+        
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">
+        &copy; <span id="current-year">2023</span> Açougue Premium. Todos os direitos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/scripts.js"></script>
+</body>
+</html>
