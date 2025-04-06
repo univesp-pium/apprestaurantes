@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       alert('Compra finalizada com sucesso! Obrigado por comprar no Açougue Premium.');
-      // Aqui você pode redirecionar para página de confirmação
+      // Redirecionar para página de confirmação
       // window.location.href = 'confirmacao.html';
     });
   
