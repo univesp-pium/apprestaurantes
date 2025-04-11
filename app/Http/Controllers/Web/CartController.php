@@ -10,4 +10,9 @@ class CartController extends Controller
     {
         return view('web.cart.index');
     }
+
+    public function confirm()
+    {
+        return view('web.cart.confirmation');
+    }
 }

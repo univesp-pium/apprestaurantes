@@ -18,6 +18,7 @@ Route::post('/register', [AuthController::class, 'register_action'])->name('auth
 Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/produtos/{product_slug}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
+Route::Get('/carrinho/confirmar', [CartController::class, 'confirm'])->name('cart.confirm');
 
 Route::prefix('area-do-cliente')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');

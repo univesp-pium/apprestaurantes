@@ -12,6 +12,6 @@ Route::prefix('admin')->group(function () {
 });
 
 // logged admin routes
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 });

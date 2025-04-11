@@ -11,7 +11,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{ asset('web/assets/css/confirmation.css') }}">
 
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -296,7 +296,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="js/scripts.js"></script>
+    <script src="{{ asset('web/assets/js/script.js') }}"></script>
 </body>
 
 </html>

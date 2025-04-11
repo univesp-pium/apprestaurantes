@@ -35,8 +35,19 @@ class ProductController extends Controller
             ]
         ];
 
+        return view('web.products.index', compact('products'));
+    }
 
+    public function show($product_slug)
+    {
 
-        return view('web.products', compact('products'));
+        $product = [
+            'name' => 'Carne moída',
+            'description' => 'Moida na hora a partir de cortes selecionados. Perfeita para hambúrgueres, molhos e recheios.',
+            'image' => 'carne-moida.webp',
+            'price' => 30.90
+        ];
+
+        return view('web.products.show', compact('product'));
     }
 }
