@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function check()
+    {
+        if (Auth::check()) {
+            return redirect()->route('admin.dashboard.index');
+        }
+        return redirect()->route('admin.auth.login');
+    }
+
     public function login()
     {
         return view('admin.auth.login');
