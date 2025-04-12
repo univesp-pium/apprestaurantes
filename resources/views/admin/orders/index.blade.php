@@ -1,12 +1,12 @@
 @extends('admin.layouts.default')
-@section('title', 'Dashboard')
+@section('title', 'Pedidos')
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h3>Dashboard</h3>
+                <h3>Pedidos</h3>
                 <hr>
-                <p>Dashboard</p>
+                <p>Pedidos</p>
             </div>
         </div>
     </div>

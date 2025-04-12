@@ -8,7 +8,7 @@
         <div class="navbar-content">
             <ul class="pc-navbar">
                 <li class="pc-item">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('admin.dashboard.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <i class="fa-solid fa-chart-line"></i>
                         </span>
@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 <li class="pc-item">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('admin.orders.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <i class="fa-solid fa-list"></i>
                         </span>
