@@ -10,11 +10,11 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
         id="main-font-link">
-    <link rel="stylesheet" href=" {{ asset('admin/assets/fonts/tabler-icons.min.css') }}">
-    <link rel="stylesheet" href=" {{ asset('admin/assets/fonts/feather.css') }}">
-    <link rel="stylesheet" href=" {{ asset('admin/assets/fonts/material.css') }}">
-    <link rel="stylesheet" href=" {{ asset('admin/assets/css/style.css') }}" id="main-style-link">
-    <link rel="stylesheet" href=" {{ asset('admin/assets/css/style-preset.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/fonts/tabler-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/fonts/feather.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/fonts/material.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}" id="main-style-link">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/style-preset.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <title>@yield('title', 'Painel Administrativo')</title>
     @stack('styles')
@@ -50,7 +50,7 @@
         preset_change("preset-1");
         font_change("Public-Sans");
     </script>
-    {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
     @stack('scripts')
 </body>
 
