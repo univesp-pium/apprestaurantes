@@ -50,7 +50,7 @@
         preset_change("preset-1");
         font_change("Public-Sans");
     </script>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
     @stack('scripts')
 </body>
 
