@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmação - Açougue Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #8B0000;
+      --primary-dark: #5a0000;
+      --primary-light: #A52A2A;
+      --secondary-color: #333;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #666;
+      --white: #fff;
+      --black: #000;
+      --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+      --border-radius: 8px;
+      --border-radius-sm: 4px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-gray);
+      color: var(--secondary-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 120px 0 0;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--white);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-color);
+      font-size: 2em;
+      margin-left: 20px;
+    }
+
+    .user-links {
+      display: flex;
+      gap: 25px;
+      margin-right: 20px;
+    }
+
+    .user-links a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 14px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .user-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .user-links a:hover::after {
+      width: 100%;
+    }
+
+    .cart-container {
+      max-width: 1200px;
+      margin: 0 auto 200px;
+      padding: 20px;
+    }
+
+    .cart-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .cart-item {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .item-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--border-radius-sm);
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-title {
+      color: var(--primary-color);
+      font-family: 'Playfair Display';
+      margin-bottom: 10px;
+    }
+
+    .item-info {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .item-info span {
+      background: var(--light-gray);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 14px;
+    }
+
+    .item-options {
+      color: var(--dark-gray);
+      margin-bottom: 15px;
+    }
+
+    .item-notes {
+      background: var(--light-gray);
+      padding: 15px;
+      border-radius: var(--border-radius-sm);
+      font-style: italic;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .related-products {
+      background: var(--white);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin: 30px 0;
+    }
+
+    .related-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--medium-gray);
+    }
+
+    .whatsapp-section {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .whatsapp-edit {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .whatsapp-input {
+      padding: 8px 15px;
+      border: 2px solid var(--primary-color);
+      border-radius: 20px;
+      font-size: 1em;
+      width: 200px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .whatsapp-input:disabled {
+      background: var(--light-gray);
+      border-color: var(--medium-gray);
+    }
+
+    .edit-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .edit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .save-btn {
+      background: #27ae60;
+    }
+
+    .save-btn:hover {
+      background: #219a52;
+    }
+
+    .total-section {
+      text-align: right;
+      margin: 40px 0;
+      font-size: 1.2em;
+    }
+
+    .total-price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .confirm-btn {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 15px 50px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: var(--transition);
+      display: block;
+      margin: 40px auto;
+      width: fit-content;
+    }
+
+    .confirm-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: var(--white);
+      margin-top: 100px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-column h3 {
+      font-family: 'Playfair Display';
+      margin-bottom: 20px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-column a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-column a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      background: var(--primary-dark);
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .confirmation-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .modal-image {
+      width: 500px;
+      height: 500px;
+      object-fit: cover;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 100px;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .cart-item {
+        flex-direction: column;
+      }
+
+      .item-image {
+        width: 100%;
+        height: 200px;
+      }
+
+      .whatsapp-edit {
+        flex-direction: column;
+      }
+
+      .whatsapp-input {
+        width: 100%;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1 class="header-title">Confirmação do Pedido</h1>
+    <nav class="user-links">
+      <a href="car.blade.html">Voltar</a>
+      <a href="#">Minha Conta</a>
+    </nav>
+  </header>
+
+  <main class="cart-container">
+    <h2 class="cart-title">Seu Pedido</h2>
+
+    <div id="cart-items-container"></div>
+
+    <div class="related-products">
+      <h3>Produtos Adicionais</h3>
+      <div id="related-items-container"></div>
+    </div>
+
+    <div class="whatsapp-section">
+      <div class="whatsapp-edit">
+        <input type="tel" 
+              class="whatsapp-input" 
+              id="whatsappNumber" 
+              value="(15) 99173-9991" 
+              disabled
+              pattern="\(\d{2}\) \d{5}-\d{4}"
+              placeholder="(00) 00000-0000">
+        <button class="edit-btn" id="editWhatsappBtn" onclick="toggleEdit()">Editar</button>
+      </div>
+      <p class="whatsapp-info">Insira seu número para que possa ser avisado que seu pedido está pronto!</p>
+    </div>
+
+    <div class="total-section">
+      Total do Pedido: <span class="total-price" id="totalPrice">R$ 0,00</span>
+    </div>
+
+    <button class="confirm-btn" onclick="openModal()">Finalizar Compra</button>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Sobre Nós</h3>
+        <ul>
+          <li><a href="#">Nossa História</a></li>
+          <li><a href="#">Qualidade</a></li>
+          <li><a href="#">Fazendas Parceiras</a></li>
+          <li><a href="#">Sustentabilidade</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Atendimento</h3>
+        <ul>
+          <li><a href="#">Central de Ajuda</a></li>
+          <li><a href="#">Política de Entrega</a></li>
+          <li><a href="#">Trocas e Devoluções</a></li>
+          <li><a href="#">Fale Conosco</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Institucional</h3>
+        <ul>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Trabalhe Conosco</a></li>
+          <li><a href="#">Fornecedores</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contato</h3>
+        <ul>
+          <li>Bisteca Street, 11</li>
+          <li>Centro, São Paulo - SP</li>
+          <li>CEP: 01000-000</li>
+          <li>contato@acouguepremium.com.br</li>
+          <li>(11) 9999-9999</li>
+        </ul>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Confirmação -->
+  <div class="confirmation-modal" id="confirmationModal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <h2>Obrigado por comprar conosco! 🎉</h2>
+      <img src="https://placehold.co/500x500" alt="Confirmação" class="modal-image">
+      <p>Seu pedido foi processado com sucesso!</p>
+      <p>Entraremos em contato para confirmar a entrega.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Carregar dados do localStorage
+      const cart = JSON.parse(localStorage.getItem('cart')) || []
+      const edits = JSON.parse(localStorage.getItem('productEdits')) || []
+      const related = JSON.parse(localStorage.getItem('relatedProducts')) || {}
+      const container = document.getElementById('cart-items-container')
+      const relatedContainer = document.getElementById('related-items-container')
+      let total = 0
+
+      // Popular itens do carrinho
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div')
+        cartItem.className = 'cart-item'
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="item-image">
+          <div class="item-details">
+            <h3 class="item-title">${item.name}</h3>
+            <div class="item-info">
+              <span>Quantidade: ${item.quantity}</span>
+              <span>Preço unitário: R$ ${item.price.toFixed(2)}</span>
+            </div>
+            <div class="item-options">
+              ${edits[index]?.text.split('\n').map(opt => `<p>✔️ ${opt}</p>`).join('')}
+            </div>
+            ${edits[index]?.text.trim() ? `<div class="item-notes">Notas: ${edits[index].text}</div>` : ''}
+          </div>
+        `
+        container.appendChild(cartItem)
+        total += item.price * item.quantity
+      })
+
+      // Popular produtos relacionados
+      Object.entries(related).forEach(([product, quantity]) => {
+        if(quantity > 0) {
+          const relatedItem = document.createElement('div')
+          relatedItem.className = 'related-item'
+          relatedItem.innerHTML = `
+            <span>${product.charAt(0).toUpperCase() + product.slice(1)}</span>
+            <span>Quantidade: ${quantity}</span>
+          `
+          relatedContainer.appendChild(relatedItem)
+        }
+      })
+
+      // Atualizar total
+      document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2)}`
+    })
+
+    // Controle do Modal
+    function openModal() {
+      document.getElementById('confirmationModal').style.display = 'flex'
+    }
+
+    function closeModal() {
+      document.getElementById('confirmationModal').style.display = 'none'
+    }
+
+    // Fechar modal ao clicar fora
+    window.onclick = function(event) {
+      const modal = document.getElementById('confirmationModal')
+      if (event.target === modal) {
+        closeModal()
+      }
+    }
+
+    // Edição do WhatsApp
+    let isEditing = false
+    const whatsappInput = document.getElementById('whatsappNumber')
+    const editButton = document.getElementById('editWhatsappBtn')
+
+    function toggleEdit() {
+      isEditing = !isEditing
+      
+      if(isEditing) {
+        whatsappInput.removeAttribute('disabled')
+        whatsappInput.focus()
+        editButton.textContent = 'Salvar'
+        editButton.classList.add('save-btn')
+      } else {
+        const isValid = /\(\d{2}\) \d{5}-\d{4}/.test(whatsappInput.value)
+        
+        if(isValid) {
+          whatsappInput.setAttribute('disabled', true)
+          editButton.textContent = 'Editar'
+          editButton.classList.remove('save-btn')
+          localStorage.setItem('whatsappNumber', whatsappInput.value)
+        } else {
+          alert('Formato inválido! Use (00) 00000-0000')
+          const savedNumber = localStorage.getItem('whatsappNumber') || '(15) 99173-9991'
+          whatsappInput.value = savedNumber
+        }
+      }
+    }
+
+    // Carregar número salvo
+    window.addEventListener('load', () => {
+      const savedNumber = localStorage.getItem('whatsappNumber')
+      if(savedNumber) {
+        whatsappInput.value = savedNumber
+      }
+    })
+  </script>
+</body>
+</html>
