@@ -20,7 +20,7 @@
                     <div class="dropdown-menu pc-h-dropdown drp-search">
                         <form class="px-3">
                             <div class="form-group mb-0 d-flex align-items-center">
-                                <i data-feather="search"></i>
+                                <i class="fa-solid fa-magnifying-glass"></i>
                                 <input type="search" class="form-control border-0 shadow-none"
                                     placeholder="Search here. . .">
                             </div>

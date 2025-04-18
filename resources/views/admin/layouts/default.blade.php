@@ -23,10 +23,8 @@
     </div>
     @include('admin.layouts.footer')
     <script src="{{ asset('admin/assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/pcoded.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/feather.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/default.js') }}"></script>
     @vite('resources/js/app.js')
     @stack('scripts')
 </body>

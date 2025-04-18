@@ -1,7 +1,7 @@
 // 'use strict';
 var flg = '0';
 document.addEventListener('DOMContentLoaded', function () {
-  feather.replace();
+  // feather.replace(); // REMOVIDO: Não depende mais do Feather
   setTimeout(function () {
     var loader = document.querySelector('.loader-bg');
     if(loader) loader.remove();

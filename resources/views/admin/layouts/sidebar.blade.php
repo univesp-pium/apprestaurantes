@@ -32,7 +32,7 @@
                             Produtos
                         </span>
                         <span class="pc-arrow">
-                            <i data-feather="chevron-right"></i>
+                            <i class="fa-solid fa-chevron-right"></i>
                         </span>
                     </a>
                     <ul class="pc-submenu">
