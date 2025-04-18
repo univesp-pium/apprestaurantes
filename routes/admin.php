@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
 
 // auth routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -16,5 +17,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // logged admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::resource('orders', OrderController::class)->parameters(['orders' => 'order'])->names('orders');
+    Route::resource('pedidos', OrderController::class)->parameters(['pedidos' => 'order'])->names('orders');
+    Route::resource('categorias', CategoryController::class)->parameters(['categorias' => 'category'])->names('categories');
 });

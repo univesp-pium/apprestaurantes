@@ -25,6 +25,29 @@
     @include('admin.layouts.footer')
     <script src="{{ asset('admin/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $('.btn-danger').click(function(e) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            e.preventDefault();
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Você tem certeza que deseja deletar o registro?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, deletar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
     <script src="{{ asset('admin/assets/js/default.js') }}"></script>
     @vite('resources/js/app.js')
     @stack('scripts')
