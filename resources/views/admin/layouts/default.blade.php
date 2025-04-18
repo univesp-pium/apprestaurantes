@@ -27,6 +27,7 @@
     <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/imask"></script>
     <script>
         $('.btn-danger').click(function(e) {
             var form = $(this).closest("form");

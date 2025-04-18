@@ -42,6 +42,11 @@
                             </a>
                         </li>
                         <li class="pc-item">
+                            <a class="pc-link" href="{{ route('admin.units.index') }}">
+                                Unidades
+                            </a>
+                        </li>
+                        <li class="pc-item">
                             <a class="pc-link" href="{{ route('admin.categories.index') }}">
                                 Categorias
                             </a>
