@@ -18660,6 +18660,10 @@ pre[class*=language-]>code {
         left: 0;
     }
 
+    .pc-header .pc-mob-drp {
+        margin-right: 0 !important;
+    }
+
     .pc-sidebar.mob-sidebar-active .navbar-wrapper {
         position: relative;
         z-index: 5;

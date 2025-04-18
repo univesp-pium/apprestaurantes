@@ -3,13 +3,17 @@
         <div class="me-auto pc-mob-drp">
             <ul class="list-unstyled">
                 <li class="pc-h-item pc-sidebar-collapse">
-                    <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
-                        <i class="fa-solid fa-bars"></i>
+                    <a href="#" class="pc-head-link ms-0" id="sidebar-hide" aria-label="Abrir/fechar menu lateral">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
                     </a>
                 </li>
+            </ul>
+        </div>
+        <div class="pc-mob-drp">
+            <ul class="list-unstyled">
                 <li class="pc-h-item pc-sidebar-popup">
-                    <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
-                        <i class="fa-solid fa-bars"></i>
+                    <a href="#" class="pc-head-link ms-0" id="mobile-collapse" aria-label="Abrir/fechar menu lateral">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="dropdown pc-h-item d-inline-flex d-md-none">
@@ -55,3 +59,4 @@
         </div>
     </div>
 </header>
+
