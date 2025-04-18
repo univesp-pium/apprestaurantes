@@ -4,12 +4,12 @@
             <ul class="list-unstyled">
                 <li class="pc-h-item pc-sidebar-collapse">
                     <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
-                        <i class="ti ti-menu-2"></i>
+                        <i class="fa-solid fa-bars"></i>
                     </a>
                 </li>
                 <li class="pc-h-item pc-sidebar-popup">
                     <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
-                        <i class="ti ti-menu-2"></i>
+                        <i class="fa-solid fa-bars"></i>
                     </a>
                 </li>
                 <li class="dropdown pc-h-item d-inline-flex d-md-none">
@@ -27,18 +27,11 @@
                         </form>
                     </div>
                 </li>
-                <li class="pc-h-item d-none d-md-inline-flex">
-                    {{-- <form class="header-search">
-                        <i data-feather="search" class="icon-search"></i>
-                        <input type="search" class="form-control" placeholder="Search here. . .">
-                    </form> --}}
-                </li>
             </ul>
         </div>
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
             <ul class="list-unstyled">
-
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
@@ -51,31 +44,8 @@
                                 aria-labelledby="drp-t1" tabindex="0">
 
                                 <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-power"></i>
+                                    <i class="fa-solid fa-power-off"></i>
                                     <span>Logout</span>
-                                </a>
-                            </div>
-                            <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2"
-                                tabindex="0">
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-help"></i>
-                                    <span>Support</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-user"></i>
-                                    <span>Account Settings</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-lock"></i>
-                                    <span>Privacy Center</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-messages"></i>
-                                    <span>Feedback</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ti ti-list"></i>
-                                    <span>History</span>
                                 </a>
                             </div>
                         </div>
