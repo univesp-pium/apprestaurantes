@@ -7,7 +7,8 @@
     <meta name="description" content="Painel Administrativo do Açougue Premium">
     <title>@yield('title', 'Painel Administrativo')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    @vite('public/admin/assets/css/default.css')
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/default.css') }}">
+    @vite('resources/css/app.css')
     @stack('styles')
 </head>
 
@@ -22,9 +23,10 @@
         </div>
     </div>
     @include('admin.layouts.footer')
-    @vite('public/admin/assets/js/popper.min.js')
-    @vite('public/admin/assets/js/bootstrap.min.js')
-    @vite('public/admin/assets/js/default.js')
+    <script src="{{ asset('admin/assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/default.js') }}"></script>
+    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 
