@@ -8,7 +8,6 @@
     <title>@yield('title', 'Painel Administrativo')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     @vite('public/admin/assets/css/default.css')
-    @vite('resources/css/app.css')
     @stack('styles')
 </head>
 
@@ -26,7 +25,6 @@
     @vite('public/admin/assets/js/popper.min.js')
     @vite('public/admin/assets/js/bootstrap.min.js')
     @vite('public/admin/assets/js/default.js')
-    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 
