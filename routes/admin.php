@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\UnitController;
 
 // auth routes
@@ -23,4 +24,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('categorias', CategoryController::class)->parameters(['categorias' => 'category'])->names('categories');
     Route::resource('unidades', UnitController::class)->parameters(['unidades' => 'unit'])->names('units');
     Route::resource('produtos', ProductController::class)->parameters(['produtos' => 'product'])->names('products');
+    Route::resource('receitas', RecipeController::class)->parameters(['receitas' => 'recipe'])->names('recipes');
 });

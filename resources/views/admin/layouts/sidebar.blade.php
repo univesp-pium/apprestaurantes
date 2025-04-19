@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
+                    <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <i class="fa-solid fa-drumstick-bite"></i>
                         </span>
@@ -36,23 +36,23 @@
                         </span>
                     </a>
                     <ul class="pc-submenu">
-                        <li class="pc-item">
+                        <li class="pc-item {{ Route::currentRouteName() == 'admin.products.index' ? 'active' : '' }}">
                             <a class="pc-link" href="{{ route('admin.products.index') }}">
                                 Produtos
                             </a>
                         </li>
-                        <li class="pc-item">
+                        <li class="pc-item {{ Route::currentRouteName() == 'admin.units.index' ? 'active' : '' }}">
                             <a class="pc-link" href="{{ route('admin.units.index') }}">
                                 Unidades
                             </a>
                         </li>
-                        <li class="pc-item">
+                        <li class="pc-item {{ Route::currentRouteName() == 'admin.categories.index' ? 'active' : '' }}">
                             <a class="pc-link" href="{{ route('admin.categories.index') }}">
                                 Categorias
                             </a>
                         </li>
-                        <li class="pc-item">
-                            <a class="pc-link" href="#">
+                        <li class="pc-item {{ Route::currentRouteName() == 'admin.recipes.index' ? 'active' : '' }}">
+                            <a class="pc-link" href="{{ route('admin.recipes.index') }}">
                                 Receitas
                             </a>
                         </li>
