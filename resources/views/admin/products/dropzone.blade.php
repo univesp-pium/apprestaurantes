@@ -1,7 +1,7 @@
 <h2>Gerenciar Imagens</h2>
 
 <!-- Dropzone -->
-<form action="{{ route('admin.products.images.upload', $product->id) }}" class="dropzone" id="dropzone">
+<form action="{{ route('admin.products.images.upload', ['product' => $product->id]) }}" class="dropzone" id="dropzone">
     @csrf
 </form>
 
@@ -14,7 +14,7 @@
             return [
                 'id' => $img->id,
                 'name' => basename($img->image),
-                'size' => \Storage::disk('public')->size($img->image),
+                'size' => (int) \Storage::disk('public')->size($img->image),
                 'url' => \Storage::url($img->image),
             ];
         });
@@ -36,7 +36,7 @@
         Dropzone.autoDiscover = false;
 
         const dropzone = new Dropzone("#dropzone", {
-            url: "{{ route('admin.products.images.upload', $product->id) }}",
+            url: "{{ route('admin.products.images.upload', ['product' => $product->id]) }}",
             paramName: "image",
             maxFilesize: 2,
             acceptedFiles: 'image/*',
@@ -64,7 +64,7 @@
             },
             removedfile: function(file) {
                 let id = file.previewElement.getAttribute("data-id") || file.name;
-                let url = `{{ route('admin.products.images.delete', [$product->id, ':image']) }}`.replace(
+                let url = `{{ route('admin.products.images.delete', ['product' => $product->id, 'image' => ':image']) }}`.replace(
                     ':image', id);
                 if (id) {
                     swal({
@@ -102,7 +102,7 @@
                         order: index + 1
                     });
                 });
-                fetch("{{ route('admin.products.images.reorder', $product->id) }}", {
+                fetch("{{ route('admin.products.images.reorder', ['product' => $product->id]) }}", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
