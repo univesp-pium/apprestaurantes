@@ -56,21 +56,22 @@
                                 Receitas
                             </a>
                         </li>
-                        <li class="pc-item">
-                            <a class="pc-link" href="#">
+                        <li
+                            class="pc-item {{ Route::currentRouteName() == 'admin.instructions.index' ? 'active' : '' }}">
+                            <a class="pc-link" href="{{ route('admin.instructions.index') }}">
                                 Instruções
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="pc-item">
+                {{-- <li class="pc-item">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <i class="fa-solid fa-gear"></i>
                         </span>
                         <span class="pc-mtext">Configurações</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
