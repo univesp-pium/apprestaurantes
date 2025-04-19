@@ -17,6 +17,7 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Abreviação</th>
                                 <th>Passo</th>
                                 <th>Ativo</th>
                                 <th width=1>Editar</th>
@@ -27,6 +28,7 @@
                             @forelse ($units as $unit)
                                 <tr>
                                     <td>{{ $unit->name }}</td>
+                                    <td>{{ $unit->abbreviation }}</td>
                                     <td>{{ $unit->step }}</td>
                                     <td>{{ $unit->active ? 'Sim' : 'Não' }}</td>
                                     <td class="align-middle" style="white-space: nowrap">

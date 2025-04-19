@@ -11,6 +11,18 @@
     </div>
 </div>
 <div class="row">
+    {{-- abbreviation --}}
+    <div class="mb-3 col-md-6">
+        <label for="abbreviation" class="form-label">Abreviação da Unidade</label>
+        <input type="text" class="form-control {{ $errors->has('abbreviation') ? 'is-invalid' : '' }}"
+            name="abbreviation" id="abbreviation" placeholder="Digite a abreviação da unidade"
+            value="{{ old('abbreviation', $unit->abbreviation ?? '') }}" autocomplete="off">
+        @error('abbreviation')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+<div class="row">
     {{-- step --}}
     <div class="mb-3 col-md-6">
         <label for="step" class="form-label">Passo da Unidade</label>
@@ -45,4 +57,3 @@
         {{ isset($unit) ? 'Atualizar' : 'Salvar' }}
     </button>
 </div>
-

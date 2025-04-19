@@ -60,7 +60,7 @@ class UnitController extends Controller
             return redirect()->route('admin.units.index');
         }
 
-        return view('admin.units.edit', compact('category'));
+        return view('admin.units.edit', compact('unit'));
     }
 
     /**
