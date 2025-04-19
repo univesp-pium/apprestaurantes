@@ -1,7 +1,7 @@
 <h2>Gerenciar Imagens</h2>
 
 <!-- Dropzone -->
-<form action="{{ route('admin.products.images.upload', ['product' => $product->id]) }}" class="dropzone" id="dropzone">
+<form action="{{ route('admin.products.images.upload', ['product' => $product->id], true) }}" class="dropzone" id="dropzone">
     @csrf
 </form>
 
@@ -36,7 +36,7 @@
         Dropzone.autoDiscover = false;
 
         const dropzone = new Dropzone("#dropzone", {
-            url: "{{ route('admin.products.images.upload', ['product' => $product->id]) }}",
+            url: "{{ route('admin.products.images.upload', ['product' => $product->id], true) }}",
             paramName: "image",
             maxFilesize: 2,
             acceptedFiles: 'image/*',
@@ -64,7 +64,7 @@
             },
             removedfile: function(file) {
                 let id = file.previewElement.getAttribute("data-id") || file.name;
-                let url = `{{ route('admin.products.images.delete', ['product' => $product->id, 'image' => ':image']) }}`.replace(
+                let url = `{{ route('admin.products.images.delete', ['product' => $product->id, 'image' => ':image'], true) }}`.replace(
                     ':image', id);
                 if (id) {
                     swal({
@@ -102,7 +102,7 @@
                         order: index + 1
                     });
                 });
-                fetch("{{ route('admin.products.images.reorder', ['product' => $product->id]) }}", {
+                fetch("{{ route('admin.products.images.reorder', ['product' => $product->id], true) }}", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -116,4 +116,3 @@
         });
     </script>
 @endpush
-
