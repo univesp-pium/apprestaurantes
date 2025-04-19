@@ -30,22 +30,22 @@
 
 @push('scripts')
     <script>
-        var element = document.getElementById('price');
-        var mask = IMask(element, {
-            mask: Number,
-            scale: 2,
-            signed: false,
-            thousandsSeparator: '.',
-            padFractionalZeros: true,
-            normalizeZeros: true,
-            radix: ',',
-            mapToRadix: ['.'],
-        });
+        document.querySelectorAll('.js_mask_money').forEach(input => {
+            IMask(input, {
+                mask: Number,
+                scale: 2,
+                signed: false,
+                thousandsSeparator: '.',
+                padFractionalZeros: true,
+                normalizeZeros: true,
+                radix: ',',
+                mapToRadix: ['.'],
+            });
 
-        element.addEventListener('blur', function() {
-            let unmasked = mask.unmaskedValue; // "123456"
-            let numericValue = parseFloat(unmasked) / 100;
-            console.log(numericValue); // 1234.56
+            input.addEventListener('blur', function() {
+                let unmasked = input.value.replace(/[.\s]/g, '');
+                let numericValue = parseFloat(unmasked) / 100;
+            });
         });
     </script>
 @endpush

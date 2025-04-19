@@ -31,6 +31,17 @@ class Product extends Model
         $this->attributes['price'] = str_replace(',', '.', $value);
     }
 
+    public function getDiscountAttribute($value)
+    {
+        return number_format($value, 2, ',', '.');
+    }
+
+    public function setDiscountAttribute($value)
+    {
+        $value = str_replace('.', '', $value);
+        $this->attributes['discount'] = str_replace(',', '.', $value);
+    }
+
     // Relationships
     public function category()
     {

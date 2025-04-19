@@ -61,12 +61,12 @@
 <div class="row">
     {{-- price --}}
     <div class="mb-3 col-md-3">
-        <label for="price" class="form-label js_mask_price">Preço</label>
+        <label for="price" class="form-label">Preço</label>
         <div class="input-group">
             <span class="input-group-text">R$</span>
-            <input type="text" class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" name="price"
-                id="price" placeholder="Digite o preço" value="{{ old('price', $product->price ?? '') }}"
-                autocomplete="off">
+            <input type="text" class="form-control js_mask_money {{ $errors->has('price') ? 'is-invalid' : '' }}"
+                name="price" id="price" placeholder="Digite o preço"
+                value="{{ old('price', $product->price ?? '') }}" autocomplete="off">
         </div>
         @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -86,9 +86,12 @@
     <div class="mb-3 col-md-3">
 
         <label for="discount" class="form-label">Desconto</label>
-        <input type="text" class="form-control {{ $errors->has('discount') ? 'is-invalid' : '' }}" name="discount"
-            id="discount" placeholder="Digite o desconto" value="{{ old('discount', $product->discount ?? 0) }}"
-            autocomplete="off">
+        <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <input type="text" class="form-control js_mask_money {{ $errors->has('discount') ? 'is-invalid' : '' }}"
+                name="discount" id="discount" placeholder="Digite o preço"
+                value="{{ old('discount', $product->discount ?? '') }}" autocomplete="off">
+        </div>
         @error('discount')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -136,4 +139,3 @@
         {{ isset($product) ? 'Atualizar' : 'Salvar' }}
     </button>
 </div>
-
