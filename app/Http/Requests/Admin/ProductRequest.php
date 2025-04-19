@@ -33,4 +33,20 @@ class ProductRequest extends FormRequest
             'active'        => 'nullable|boolean',
         ];
     }
+
+    // names
+    public function attributes(): array
+    {
+        return [
+            'category_id'   => 'categoria',
+            'unity_id'      => 'unidade',
+            'title'         => 'título',
+            'description'   => 'descrição',
+            'price'         => 'preço',
+            'quantity'      => 'quantidade',
+            'discount'      => 'desconto',
+            'is_addicional' => 'adicional',
+            'active'        => 'ativo',
+        ];
+    }
 }

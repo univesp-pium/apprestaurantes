@@ -23,6 +23,10 @@ return new class extends Migration
             $table->boolean('is_addicional')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('unity_id')->references('id')->on('units');
         });
     }
 
