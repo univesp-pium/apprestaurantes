@@ -18,6 +18,9 @@
                 'url' => \Storage::url($img->image),
             ];
         });
+
+    $urlUpload = route('admin.products.images.upload', ['product' => $product->id]);
+
 @endphp
 
 <script>
@@ -36,7 +39,7 @@
         Dropzone.autoDiscover = false;
 
         const dropzone = new Dropzone("#dropzone", {
-            url: "{{ route('admin.products.images.upload', ['product' => $product->id], true) }}",
+            url: "{{ $urlUpload }}",
             paramName: "image",
             maxFilesize: 2,
             acceptedFiles: 'image/*',
