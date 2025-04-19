@@ -12,52 +12,55 @@
                     </a>
                 </div>
                 <hr>
-                <table id="productsTable" class="table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th>Categoria</th>
-                            <th>Quantidade</th>
-                            <th>Ativo</th>
-                            <th width=1>Editar</th>
-                            <th width=1>Excluir</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($products as $product)
+                <div class="table-responsive">
+                    <table id="productsTable" class="table table-sm table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $product->title }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->active ? 'Sim' : 'Não' }}</td>
-                                <td class="align-middle" style="white-space: nowrap">
-                                    <a href="{{ route('admin.products.edit', $product->id) }}"
-                                        class="btn btn-primary btn-sm rounded-pill">
-                                        <i class="fas fa-edit"></i>
-                                        Editar
-                                    </a>
-                                </td>
-                                <td class="align-middle" style="white-space: nowrap">
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="js-delete-button btn btn-danger btn-sm rounded-pill">
-                                            <i class="fas fa-trash"></i>
-                                            Excluir
-                                        </button>
-                                    </form>
-                                </td>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th>Categoria</th>
+                                <th>Quantidade</th>
+                                <th>Ativo</th>
+                                <th width=1>Editar</th>
+                                <th width=1>Excluir</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="100%" class="text-center">Nenhuma registro cadastrado</td>
-                            </tr>
-                        @endforelse
+                        </thead>
+                        <tbody>
+                            @forelse ($products as $product)
+                                <tr>
+                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ $product->quantity }}</td>
+                                    <td>{{ $product->active ? 'Sim' : 'Não' }}</td>
+                                    <td class="align-middle" style="white-space: nowrap">
+                                        <a href="{{ route('admin.products.edit', $product->id) }}"
+                                            class="btn btn-primary btn-sm rounded-pill">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </a>
+                                    </td>
+                                    <td class="align-middle" style="white-space: nowrap">
+                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="js-delete-button btn btn-danger btn-sm rounded-pill">
+                                                <i class="fas fa-trash"></i>
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="100%" class="text-center">Nenhuma registro cadastrado</td>
+                                </tr>
+                            @endforelse
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         {{ $products->links() }}
