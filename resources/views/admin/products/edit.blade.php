@@ -19,6 +19,8 @@
                     @include('admin.products.form', ['product' => $product])
                 </form>
 
+                @include('admin.products.dropzone', ['product' => $product])
+
             </div>
         </div>
     </div>
