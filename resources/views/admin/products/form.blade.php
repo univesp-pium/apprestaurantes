@@ -62,9 +62,12 @@
     {{-- price --}}
     <div class="mb-3 col-md-3">
         <label for="price" class="form-label js_mask_price">Preço</label>
-        <input type="text" class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" name="price"
-            id="price" placeholder="Digite o preço" value="{{ old('price', $product->price ?? '') }}"
-            autocomplete="off">
+        <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <input type="text" class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" name="price"
+                id="price" placeholder="Digite o preço" value="{{ old('price', $product->price ?? '') }}"
+                autocomplete="off">
+        </div>
         @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror

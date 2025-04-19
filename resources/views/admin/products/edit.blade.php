@@ -29,5 +29,23 @@
 @endpush
 
 @push('scripts')
-    <script></script>
+    <script>
+        var element = document.getElementById('price');
+        var mask = IMask(element, {
+            mask: Number,
+            scale: 2,
+            signed: false,
+            thousandsSeparator: '.',
+            padFractionalZeros: true,
+            normalizeZeros: true,
+            radix: ',',
+            mapToRadix: ['.'],
+        });
+
+        element.addEventListener('blur', function() {
+            let unmasked = mask.unmaskedValue; // "123456"
+            let numericValue = parseFloat(unmasked) / 100;
+            console.log(numericValue); // 1234.56
+        });
+    </script>
 @endpush

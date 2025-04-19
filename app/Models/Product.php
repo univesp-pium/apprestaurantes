@@ -20,6 +20,17 @@ class Product extends Model
         'active',
     ];
 
+    public function getPriceAttribute($value)
+    {
+        return number_format($value, 2, ',', '.');
+    }
+
+    public function setPriceAttribute($value)
+    {
+        $value = str_replace('.', '', $value);
+        $this->attributes['price'] = str_replace(',', '.', $value);
+    }
+
     // Relationships
     public function category()
     {

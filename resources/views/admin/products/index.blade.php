@@ -6,10 +6,15 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between">
                     <h3>Produtos</h3>
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-success rounded-pill">
-                        <i class="fas fa-plus"></i>
-                        Adicionar
-                    </a>
+
+                    <div>
+                        @include('admin.products.search')
+
+                        <a href="{{ route('admin.products.create') }}" class="btn btn-success rounded-pill">
+                            <i class="fas fa-plus"></i>
+                            Adicionar
+                        </a>
+                    </div>
                 </div>
                 <hr>
                 <div class="table-responsive">
@@ -29,7 +34,7 @@
                             @forelse ($products as $product)
                                 <tr>
                                     <td>{{ $product->title }}</td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>R$ {{ $product->price }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->quantity }}</td>
                                     <td>{{ $product->active ? 'Sim' : 'Não' }}</td>

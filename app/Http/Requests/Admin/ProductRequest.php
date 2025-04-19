@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
             'unity_id'      => 'required|exists:units,id',
             'title'         => 'required|string|min:3|max:255',
             'description'   => 'nullable|string',
-            'price'         => 'required|numeric',
+            'price'         => 'required',
             'quantity'      => 'required|integer',
             'discount'      => 'nullable|numeric',
             'is_addicional' => 'nullable|boolean',
