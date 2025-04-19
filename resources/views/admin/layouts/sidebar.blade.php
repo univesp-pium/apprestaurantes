@@ -37,7 +37,7 @@
                     </a>
                     <ul class="pc-submenu">
                         <li class="pc-item">
-                            <a class="pc-link" href="#">
+                            <a class="pc-link" href="{{ route('admin.products.index') }}">
                                 Produtos
                             </a>
                         </li>

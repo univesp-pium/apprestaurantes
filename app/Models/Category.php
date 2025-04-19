@@ -15,6 +15,12 @@ class Category extends Model
         'active'
     ];
 
+    // Relationships
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    // Custom
 
     protected static function boot()
     {

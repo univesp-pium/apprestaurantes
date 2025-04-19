@@ -1,22 +1,22 @@
 @extends('admin.layouts.default')
-@section('title', 'Unidades')
+@section('title', 'Produtos')
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between">
-                    <h3>Unidade - Editar</h3>
-                    <a href="{{ route('admin.units.index') }}" class="btn btn-primary rounded-pill">
+                    <h3>Produto - Editar</h3>
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-primary rounded-pill">
                         <i class="fas fa-arrow-left"></i>
                         Voltar
                     </a>
                 </div>
                 <hr>
 
-                <form action="{{ route('admin.units.update', $unit['id']) }}" method="POST">
+                <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    @include('admin.units.form', ['unit' => $unit])
+                    @include('admin.products.form', ['product' => $product])
                 </form>
 
             </div>
@@ -29,11 +29,5 @@
 @endpush
 
 @push('scripts')
-    <script>
-        const element = document.getElementById('step');
-        const maskOptions = {
-            mask: '0.000'
-        };
-        const mask = IMask(element, maskOptions);
-    </script>
+    <script></script>
 @endpush

@@ -13,4 +13,10 @@ class Unit extends Model
         'step',
         'active',
     ];
+
+    // Relationships
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
