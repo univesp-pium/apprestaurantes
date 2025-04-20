@@ -19,7 +19,7 @@
             ];
         });
 
-    $urlUpload = route('admin.products.images.upload', ['product' => $product->id]);
+    $urlUpload = route('admin.products.images.upload', ['product' => $product->id], true);
 
 @endphp
 

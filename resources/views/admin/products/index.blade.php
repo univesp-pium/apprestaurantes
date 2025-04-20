@@ -25,6 +25,7 @@
                                 <th>Preço</th>
                                 <th>Categoria</th>
                                 <th>Quantidade</th>
+                                <th>Imagens</th>
                                 <th>Ativo</th>
                                 <th width=1>Editar</th>
                                 <th width=1>Excluir</th>
@@ -37,6 +38,7 @@
                                     <td>R$ {{ $product->price }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->quantity }}</td>
+                                    <td>{{ count($product->images) }}</td>
                                     <td>{{ $product->active ? 'Sim' : 'Não' }}</td>
                                     <td class="align-middle" style="white-space: nowrap">
                                         <a href="{{ route('admin.products.edit', $product->id) }}"

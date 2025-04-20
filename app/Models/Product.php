@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -27,6 +29,8 @@ class Product extends Model
 
     public function setPriceAttribute($value)
     {
+        if (empty($value))
+            return;
         $value = str_replace('.', '', $value);
         $this->attributes['price'] = str_replace(',', '.', $value);
     }
@@ -38,6 +42,8 @@ class Product extends Model
 
     public function setDiscountAttribute($value)
     {
+        if (empty($value))
+            return;
         $value = str_replace('.', '', $value);
         $this->attributes['discount'] = str_replace(',', '.', $value);
     }
@@ -61,5 +67,19 @@ class Product extends Model
     public function additionals()
     {
         return $this->hasMany(Additional::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            foreach ($product->images as $image) {
+                if (Storage::disk('public')->exists($image->image)) {
+                    Storage::disk('public')->delete($image->image);
+                }
+                $image->delete();
+            }
+        });
     }
 }
