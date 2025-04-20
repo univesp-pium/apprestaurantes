@@ -7,7 +7,7 @@
     <meta name="description" content="Painel Administrativo do Açougue Premium">
     <title>@yield('title', 'Painel Administrativo')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/default.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/default.css') }}">
     @vite('resources/css/app.css')
     @stack('styles')
 </head>
@@ -23,8 +23,8 @@
         </div>
     </div>
     @include('admin.layouts.footer')
-    <script src="{{ asset('admin/assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
     <script src="https://unpkg.com/imask"></script>
@@ -49,7 +49,7 @@
             });
         });
     </script>
-    <script src="{{ asset('admin/assets/js/default.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/default.js') }}"></script>
     @vite('resources/js/app.js')
     @stack('scripts')
 </body>

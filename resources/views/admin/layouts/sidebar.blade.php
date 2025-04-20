@@ -2,7 +2,7 @@
     <div class="navbar-wrapper">
         <div class="m-header">
             <a href="#" class="b-brand text-primary p-2">
-                <img src="{{ asset('admin/assets/images/logo.avif') }}" class="img-fluid logo-lg" alt="logo">
+                <img src="{{ asset('assets/admin/images/logo.avif') }}" class="img-fluid logo-lg" alt="logo">
             </a>
         </div>
         <div class="navbar-content">
