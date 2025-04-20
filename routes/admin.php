@@ -29,6 +29,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/produtos/{product}/images/upload', [ProductImageController::class, 'upload_images'])->name('products.images.upload');
     Route::post('/produtos/{product}/images/reorder', [ProductImageController::class, 'reorder_images'])->name('products.images.reorder');
     Route::delete('/produtos/{product}/images/{image}', [ProductImageController::class, 'delete_images'])->name('products.images.delete');
+    Route::put('/produtos/{product}/instrucoes', [ProductController::class, 'update_instructions'])->name('products.instructions.update');
+    Route::put('/receitas/{product}/receitas', [ProductController::class, 'update_recipes'])->name('products.recipes.update');
     Route::resource('receitas', RecipeController::class)->parameters(['receitas' => 'recipe'])->names('recipes');
     Route::resource('instrucoes', InstructionController::class)->parameters(['instrucoes' => 'instruction'])->names('instructions');
 });

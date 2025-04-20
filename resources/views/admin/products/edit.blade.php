@@ -19,6 +19,19 @@
                     @include('admin.products.form', ['product' => $product])
                 </form>
 
+                <section class="card mt-3">
+                    <div class="card-header p-3">
+                        <h5 class="card-title">Outras funções</h5>
+                    </div>
+                    <div class="card-body">
+
+                        @include('admin.products.instructions_modal', ['product' => $product])
+
+                        @include('admin.products.recipes_modal', ['product' => $product])
+                        
+                    </div>
+                </section>
+
                 @include('admin.products.dropzone', ['product' => $product])
 
             </div>
