@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="dark">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -39,6 +39,9 @@
                             <i class="fas fa-sign-in-alt"></i> Entrar
                         </button>
                     </div>
+
+                    {{-- Logar como cliente --}}
+                    <a href="{{ route('auth.login') }}">Login Cliente</a>
                 </form>
             </div>
         </div>

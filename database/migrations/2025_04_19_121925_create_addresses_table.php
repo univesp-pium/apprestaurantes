@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('neighborhood');
             $table->string('zip_code');
             $table->string('number')->nullabe();
-            $table->integer('complement')->nullable();
+            $table->string('complement')->nullable();
             $table->text('observation')->nullable();
             $table->timestamps();
         });

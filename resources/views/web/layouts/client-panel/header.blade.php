@@ -40,8 +40,7 @@
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
-                        <span>{{ Auth::guard('admin')->user()->name }}</span>
-
+                        <span>{{ Auth::guard('client')->user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
 
@@ -49,7 +48,7 @@
                             <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel"
                                 aria-labelledby="drp-t1" tabindex="0">
 
-                                <a href="{{ route('admin.auth.logout_action') }}" class="dropdown-item">
+                                <a href="{{ route('auth.logout_action') }}" class="dropdown-item">
                                     <i class="fa-solid fa-power-off"></i>
                                     <span>Logout</span>
                                 </a>

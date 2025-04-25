@@ -26,10 +26,10 @@
         <!-- Cabeçalho -->
         <header class="header">
             <nav class="user-links">
-                <a href="index.html" class="user-link">VOLTAR À LOJA</a>
+                <a href="{{ route('home') }}" class="user-link">VOLTAR À LOJA</a>
             </nav>
 
-            <a href="index.html" class="logo">
+            <a href="{{ route('home') }}" class="logo">
                 <h1>Açougue Premium</h1>
             </a>
         </header>
@@ -39,61 +39,110 @@
             <div class="auth-card">
                 <h2 class="auth-title">Criar Conta</h2>
 
-                <form id="registerForm">
+                <form id="registerForm" action="{{ route('auth.register_action') }}" method="POST">
+                    @csrf
+
                     <div class="form-group">
-                        <label for="fullName" class="form-label">Nome Completo</label>
-                        <input type="text" id="fullName" class="form-control" required
-                            placeholder="Seu nome completo">
+                        <label for="name" class="form-label">Nome Completo</label>
+                        <input type="text" id="name"
+                            class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" required
+                            placeholder="Seu nome completo" value="{{ old('name') }}">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="email" class="form-label">E-mail</label>
-                        <input type="email" id="email" class="form-control" required placeholder="seu@email.com">
+                        <input type="email" id="email"
+                            class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" required
+                            placeholder="seu@email.com" value="{{ old('email') }}">
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="password" class="form-label">Senha</label>
-                        <input type="password" id="password" class="form-control" required placeholder="••••••••">
+                        <input type="password" id="password"
+                            class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password"
+                            required placeholder="••••••••">
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="confirmPassword" class="form-label">Confirmar Senha</label>
-                        <input type="password" id="confirmPassword" class="form-control" required
-                            placeholder="••••••••">
+                        <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                        <input type="password" id="password_confirmation"
+                            class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                            name="password_confirmation" required placeholder="••••••••">
+                        @error('password_confirmation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="street" class="form-label">Rua</label>
-                            <input type="text" id="street" class="form-control" required
-                                placeholder="Nome da rua">
+                            <input type="text" id="street"
+                                class="form-control {{ $errors->has('street') ? 'is-invalid' : '' }}" name="street"
+                                required placeholder="Nome da rua" value="{{ old('street') }}">
+                            @error('street')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="number" class="form-label">Número</label>
-                            <input type="text" id="number" class="form-control" required placeholder="Nº">
+                            <input type="text" id="number"
+                                class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" name="number"
+                                required placeholder="Nº" value="{{ old('number') }}">
+                            @error('number')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="neighborhood" class="form-label">Bairro</label>
-                        <input type="text" id="neighborhood" class="form-control" required placeholder="Seu bairro">
+                        <input type="text" id="neighborhood"
+                            class="form-control {{ $errors->has('neighborhood') ? 'is-invalid' : '' }}"
+                            name="neighborhood" required placeholder="Seu bairro" value="{{ old('neighborhood') }}">
+                        @error('neighborhood')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="complement" class="form-label">Complemento</label>
-                        <input type="text" id="complement" class="form-control" placeholder="Apto, bloco, etc.">
+                        <input type="text" id="complement"
+                            class="form-control {{ $errors->has('complement') ? 'is-invalid' : '' }}"
+                            name="complement" placeholder="Apto, bloco, etc." value="{{ old('complement') }}">
+                        @error('complement')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="city" class="form-label">Cidade</label>
-                            <input type="text" id="city" class="form-control" value="Sorocaba" readonly>
+                            <input type="text" id="city"
+                                class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" name="city"
+                                value="Sorocaba" readonly>
+                            @error('city')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="state" class="form-label">Estado</label>
-                            <input type="text" id="state" class="form-control" value="SP" readonly>
+                            <input type="text" id="state"
+                                class="form-control {{ $errors->has('state') ? 'is-invalid' : '' }}" name="state"
+                                value="SP" readonly>
+                            @error('state')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -105,7 +154,7 @@
                 </form>
 
                 <div class="auth-footer">
-                    <p>Já tem uma conta? <a href="login.html" class="auth-link">Faça login</a></p>
+                    <p>Já tem uma conta? <a href="{{ route('auth.login') }}" class="auth-link">Faça login</a></p>
                 </div>
             </div>
         </main>
@@ -161,24 +210,7 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Validação simples de senha
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert('As senhas não coincidem!');
-                return;
-            }
-
-            // Adicionar a lógica de cadastro
-            alert('Cadastro realizado com sucesso! Redirecionando...');
-            window.location.href = 'index.html';
-        });
-    </script>
+    <script></script>
 </body>
 
 </html>

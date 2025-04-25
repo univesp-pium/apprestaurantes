@@ -26,10 +26,10 @@
         <!-- Cabeçalho -->
         <header class="header">
             <nav class="user-links">
-                <a href="index.html" class="user-link">VOLTAR À LOJA</a>
+                <a href="{{ route('home') }}" class="user-link">VOLTAR À LOJA</a>
             </nav>
 
-            <a href="index.html" class="logo">
+            <a href="{{ route('home') }}" class="logo">
                 <h1>Açougue Premium</h1>
             </a>
         </header>
@@ -39,15 +39,26 @@
             <div class="auth-card">
                 <h2 class="auth-title">Login</h2>
 
-                <form id="loginForm">
+                <form id="loginForm" action="{{ route('auth.login_action') }}" method="post">
+                    @csrf
                     <div class="form-group">
                         <label for="email" class="form-label">E-mail</label>
-                        <input type="email" id="email" class="form-control" required placeholder="seu@email.com">
+                        <input type="email" id="email"
+                            class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" required
+                            placeholder="seu@email.com" value="{{ old('email') }}">
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="password" class="form-label">Senha</label>
-                        <input type="password" id="password" class="form-control" required placeholder="••••••••">
+                        <input type="password" id="password"
+                            class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password"
+                            required placeholder="••••••••">
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -58,7 +69,7 @@
                 </form>
 
                 <div class="auth-footer">
-                    <p>Não tem uma conta? <a href="cadastro.html" class="auth-link">Cadastre-se</a></p>
+                    <p>Não tem uma conta? <a href="{{ route('auth.register') }}" class="auth-link">Cadastre-se</a></p>
                     <p><a href="#" class="auth-link">Esqueceu sua senha?</a></p>
                 </div>
             </div>
@@ -114,15 +125,6 @@
             <p>&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Adicionar a lógica de login
-            alert('Login realizado com sucesso! Redirecionando...');
-            window.location.href = 'index.html';
-        });
-    </script>
 </body>
 
 </html>

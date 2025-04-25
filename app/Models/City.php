@@ -9,8 +9,9 @@ class City extends Model
     protected $table = 'cities';
 
     protected $fillable = [
-        'state_id',
         'name',
+        'slug',
+        'state_id',
     ];
 
     // Relationships

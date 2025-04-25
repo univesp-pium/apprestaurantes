@@ -29,10 +29,10 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
+                            <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Registro</a>
+                            <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">

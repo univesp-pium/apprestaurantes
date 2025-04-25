@@ -9,21 +9,27 @@ class Address extends Model
     protected $table = 'addresses';
 
     protected $fillable = [
-        'address_line_1',
-        'address_line_2',
-        'city',
-        'state',
-        'zip',
-        'country',
+        'city_id',
+        'street',
+        'neighborhood',
+        'zip_code',
+        'number',
+        'complement',
+        'observation',
     ];
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function clients()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

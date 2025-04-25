@@ -20,7 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 // logged admin routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['admin.auth'])->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('pedidos', OrderController::class)->parameters(['pedidos' => 'order'])->names('orders');
     Route::resource('categorias', CategoryController::class)->parameters(['categorias' => 'category'])->names('categories');

@@ -20,7 +20,7 @@ Route::get('/produtos/{product_slug}', [ProductController::class, 'show'])->name
 Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
 Route::Get('/carrinho/confirmar', [CartController::class, 'confirm'])->name('cart.confirm');
 
-Route::prefix('area-do-cliente')->group(function () {
+Route::prefix('area-do-cliente')->middleware(['client.auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/pedidos', [OrderController::class, 'orders'])->name('dashboard.orders');
     Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('dashboard.orders.show'); // tela de sucesso / também mostra os status dos pedidos

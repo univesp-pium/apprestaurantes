@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('address_client', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('address_id');
+            $table->boolean('default');
+            $table->timestamps();
 
-            // Foreign keys
+            //Foreigns Keys
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
@@ -24,9 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['address_id']);
-            $table->dropColumn('address_id');
-        });
+        Schema::dropIfExists('address_client');
     }
 };

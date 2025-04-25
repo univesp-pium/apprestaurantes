@@ -9,7 +9,14 @@ class State extends Model
     protected $table = 'states';
 
     protected $fillable = [
-        'abbreviation',
-        'name',
+        "name",
+        "slug",
+        "uf",
     ];
+
+    // Relationships
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

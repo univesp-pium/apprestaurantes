@@ -9,16 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function check()
-    {
-        if (Auth::check()) {
-            return redirect()->route('admin.dashboard.index');
-        }
-        return redirect()->route('admin.auth.login');
-    }
-
     public function login()
     {
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.dashboard.index');
+        }
         return view('admin.auth.login');
     }
 
@@ -30,20 +25,27 @@ class AuthController extends Controller
             return redirect()->route('admin.auth.login');
         }
 
-        if (!$user->is_admin) {
-            return redirect('web.auth.login');
-        }
-
         if (password_verify($request->password, $user->password)) {
-            Auth::login($user);
+            Auth::guard('admin')->login($user);
+            sweetalert()->success('Login efetuado com sucesso!');
+            return redirect()->route('admin.dashboard.index');
         }
 
-        return redirect()->route('admin.dashboard.index');
+        return redirect()->back();
     }
 
     public function logout_action()
     {
-        Auth::logout();
-        return redirect()->route('home');
+        Auth::guard('admin')->logout();
+        sweetalert()->success('Login efetuado com sucesso!');
+        return redirect()->route('admin.auth.login');
+    }
+
+    public function check()
+    {
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.dashboard.index');
+        }
+        return view('admin.auth.login');
     }
 }
