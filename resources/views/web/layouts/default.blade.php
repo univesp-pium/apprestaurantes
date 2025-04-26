@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     Açougue Premium
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -50,13 +50,18 @@
         @yield('content')
     </main>
 
-    <footer>
-
+    <footer class="bg-danger text-white text-center py-4">
+        <p class="mb-0">&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
     <script src="{{ asset('assets/web/js/default.js') }}"></script>
+    <style>
+        main {
+            min-height: calc(100vh - 128px);
+        }
+    </style>
 </body>
 
 </html>

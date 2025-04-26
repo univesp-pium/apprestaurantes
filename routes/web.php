@@ -25,3 +25,6 @@ Route::prefix('area-do-cliente')->middleware(['client.auth'])->group(function ()
     Route::get('/pedidos', [OrderController::class, 'orders'])->name('dashboard.orders');
     Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('dashboard.orders.show'); // tela de sucesso / também mostra os status dos pedidos
 });
+
+
+// rotas (url)

@@ -1,181 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <!-- Cabeçalho -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bisteca Sorocabana - Seu açougue virou online!</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('web.layouts.default')
+@section('title', 'Carrinho')
+@section('content')
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
-    <h1 class="text-danger fw-bold">Açougue Premium</h1>
-    <nav class="d-flex gap-4 align-items-center">
-      <a href="#" class="text-dark text-uppercase text-decoration-none">Login</a>
-      <a href="#" class="text-dark text-uppercase text-decoration-none">Cadastro</a>
-      <img src="https://placehold.co/40x40" alt="Carrinho" style="width: 32px; height: 32px; cursor: pointer;">
-    </nav>
-  </header>
+    <h2 class="text-center text-danger mb-4">Itens Selecionados</h2>
+    <div id="card-container" class="mb-5"></div>
 
-  <!-- Main -->
-  <main class="container my-5">
-    <!-- Filtros por Categoria -->
-    <section class="text-center mb-4">
-      <h2 class="text-danger mb-3">Selecione uma categoria</h2>
-      <div class="btn-group flex-wrap" role="group" aria-label="Categorias">
-        <button class="btn btn-outline-danger filter-btn" data-category="churrasco">Churrasco</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="panela">Panela</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="recheada">Recheada</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="moida">Moída</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="bassi">Bassi</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="assar">Assar</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="bifes">Bifes</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="frango">Frango</button>
-        <button class="btn btn-outline-danger filter-btn" data-category="suinos">Suínos</button>
-      </div>
-    </section>
-
-    <!-- Seção de Produtos -->
-    <section id="produtos">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col product-card" data-category="churrasco">
-          <div class="card h-100">
-            <img src="https://placehold.co/300x200" class="card-img-top" alt="Carne 1">
-            <div class="card-body">
-              <h5 class="card-title text-danger">Contra Filé 500g - R$ 29,99</h5>
-              <div class="d-flex justify-content-center align-items-center gap-2 my-3">
-                <button class="btn btn-danger btn-sm minus">-</button>
-                <span class="quantity">1</span>
-                <button class="btn btn-danger btn-sm plus">+</button>
-              </div>
-              <button class="btn btn-danger w-100">Adicionar ao Carrinho</button>
+    <section class="related-products mb-5">
+        <div class="container">
+            <h3 class="mb-3">Produtos Relacionados</h3>
+            <div class="row g-3">
+                <div class="col-md-4 d-flex align-items-center gap-2">
+                    <img src="https://placehold.co/30x30" alt="Carvão" class="rounded">
+                    <span>Carvão</span>
+                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="carvao">−</button>
+                    <span class="fw-bold related-qty" id="carvao">0</span>
+                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="carvao">+</button>
+                </div>
+                <div class="col-md-4 d-flex align-items-center gap-2">
+                    <img src="https://placehold.co/30x30" alt="Linguiça" class="rounded">
+                    <span>Linguiça</span>
+                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="linguica">−</button>
+                    <span class="fw-bold related-qty" id="linguica">0</span>
+                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="linguica">+</button>
+                </div>
+                <div class="col-md-4 d-flex align-items-center gap-2">
+                    <img src="https://placehold.co/30x30" alt="Acendedor" class="rounded">
+                    <span>Acendedor</span>
+                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="acendedor">−</button>
+                    <span class="fw-bold related-qty" id="acendedor">0</span>
+                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="acendedor">+</button>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="col product-card" data-category="panela">
-          <div class="card h-100">
-            <img src="https://placehold.co/300x200" class="card-img-top" alt="Carne 2">
-            <div class="card-body">
-              <h5 class="card-title text-danger">Coxão Mole 500g - R$ 29,99</h5>
-              <div class="d-flex justify-content-center align-items-center gap-2 my-3">
-                <button class="btn btn-danger btn-sm minus">-</button>
-                <span class="quantity">1</span>
-                <button class="btn btn-danger btn-sm plus">+</button>
-              </div>
-              <button class="btn btn-danger w-100">Adicionar ao Carrinho</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <!-- Seção Quem Somos Nós -->
-    <section class="my-5">
-      <h2 class="text-danger text-center mb-4">Quem somos nós?</h2>
-      <div class="row text-center">
-        <div class="col-md-4">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 1">
-          <p class="mt-2">Profissional 1</p>
-        </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 2">
-          <p class="mt-2">Profissional 2</p>
-        </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 3">
-          <p class="mt-2">Profissional 3</p>
-        </div>
-      </div>
-    </section>
+    <div class="text-center">
+        <a href="{{ route('cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
+    </div>
 
-    <!-- Seção Promoção do Mês -->
-    <section class="my-5 text-center">
-      <h2 class="text-danger mb-4">Promoção do mês</h2>
-      <img src="https://placehold.co/500x300" class="img-fluid rounded shadow" alt="Promoção do mês">
-    </section>
+@endsection
 
-    <!-- Seção Fale com a Gente -->
-    <section class="my-5 text-center">
-      <h2 class="text-danger mb-3">Fale com a gente</h2>
-      <p class="mb-3">Entre em contato pelo WhatsApp para dúvidas ou pedidos!</p>
-      <a href="https://wa.me/5511999999999" target="_blank" class="btn btn-success btn-lg">
-        <i class="bi bi-whatsapp"></i> Conversar no WhatsApp
-      </a>
-    </section>
-  </main>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/web/css/product.css') }}">
+@endpush
 
-  <!-- Footer -->
-  <footer class="bg-danger text-white text-center py-4">
-    <p class="mb-0">&copy; 2025 Açougue Premium. Todos os direitos reservados.</p>
-  </footer>
-
-  <!-- Scripts Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Scripts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Controle de quantidade dos produtos
-      document.querySelectorAll('.product-card').forEach(card => {
-        const minus = card.querySelector('.minus');
-        const plus = card.querySelector('.plus');
-        const quantityDisplay = card.querySelector('.quantity');
-        let quantity = 1;
-
-        minus.addEventListener('click', () => {
-          quantity = Math.max(1, quantity - 1);
-          quantityDisplay.textContent = quantity;
-        });
-
-        plus.addEventListener('click', () => {
-          quantity++;
-          quantityDisplay.textContent = quantity;
-        });
-
-        const addToCartBtn = card.querySelector('button.btn-danger.w-100');
-        addToCartBtn.addEventListener('click', () => {
-          const name = card.querySelector(".card-title").textContent;
-          const priceText = name.match(/R\$\s?([\d,\.]+)/);
-          const price = priceText ? parseFloat(priceText[1].replace(',', '.')) : 0;
-
-          const cart = JSON.parse(localStorage.getItem('cart')) || [];
-          const existing = cart.find(item => item.name === name);
-          if (existing) {
-            existing.quantity += quantity;
-          } else {
-            cart.push({ name, price, quantity });
-          }
-          localStorage.setItem('cart', JSON.stringify(cart));
-          alert("Produto adicionado ao carrinho!");
-          quantity = 1;
-          quantityDisplay.textContent = quantity;
-        });
-      });
-
-      // Filtro por categoria com botão ativo
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const categoria = btn.dataset.category;
-
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('btn-danger'));
-          btn.classList.add('btn-danger');
-
-          document.querySelectorAll('.product-card').forEach(card => {
-            card.style.display = card.dataset.category === categoria ? 'block' : 'none';
-          });
-        });
-      });
-
-      // Redirecionamento para carrinho
-      const cartIcon = document.querySelector('img[alt="Carrinho"]');
-      if (cartIcon) {
-        cartIcon.addEventListener("click", () => {
-          window.location.href = "car.blade.php";
-        });
-      }
-    });
-  </script>
-</body>
-</html>
+@push('scripts')
+    <script src="{{ asset('assets/web/js/product.js') }}"></script>
+@endpush

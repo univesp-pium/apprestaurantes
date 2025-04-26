@@ -4,6 +4,11 @@
 
     Produto
 
+
+    <a href="{{ route('cart.index') }}">
+        Exemplo de link para o carrinho
+    </a>
+
 @endsection
 
 @push('styles')
