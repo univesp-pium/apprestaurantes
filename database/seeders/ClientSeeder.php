@@ -17,8 +17,7 @@ class ClientSeeder extends Seeder
             'email'         => 'teste@teste.com',
             'name'          => 'Cliente de teste',
             'password'      => '123123123',
-            'phone'         => '(15) 98888-8888',
-            'address_id'    => Address::first()->id
+            'phone'         => '(15) 98888-8888'
         ]);
     }
 }
