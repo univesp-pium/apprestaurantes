@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\AddressController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
@@ -20,11 +21,9 @@ Route::get('/produtos/{product_slug}', [ProductController::class, 'show'])->name
 Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
 Route::Get('/carrinho/confirmar', [CartController::class, 'confirm'])->name('cart.confirm');
 
-Route::prefix('area-do-cliente')->middleware(['client.auth'])->group(function () {
+Route::prefix('area-do-cliente')->middleware(['client.auth'])->name('client-area.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/pedidos', [OrderController::class, 'orders'])->name('dashboard.orders');
-    Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('dashboard.orders.show'); // tela de sucesso / também mostra os status dos pedidos
+    Route::get('/pedidos', [OrderController::class, 'orders'])->name('orders.index');
+    Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('orders.show'); // tela de sucesso / também mostra os status dos pedidos
+    Route::resource('/enderecos', AddressController::class)->parameters(['enderecos' => 'address'])->names('addresses');;
 });
-
-
-// rotas (url)

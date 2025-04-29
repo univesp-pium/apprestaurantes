@@ -41,8 +41,8 @@ class Client extends Authenticatable
     }
 
     //Relationships
-    public function address()
+    public function addresses()
     {
-        return $this->belongsToMany(Address::class);
+        return $this->hasMany(Address::class);
     }
 }

@@ -13,14 +13,21 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('client_id');
+            $table->string('nickname');
+            $table->string('state');
+            $table->string('city');
             $table->string('street');
             $table->string('neighborhood');
-            $table->string('zip_code');
+            $table->string('cep');
             $table->string('number')->nullabe();
             $table->string('complement')->nullable();
             $table->text('observation')->nullable();
+            $table->boolean('is_main_address')->default(false);
             $table->timestamps();
+
+            //Foreign keys
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

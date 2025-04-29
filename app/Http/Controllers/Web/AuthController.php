@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::guard('client')->check()) {
-            return redirect()->route('dashboard.index');
+            return redirect()->route('client-area.dashboard.index');
         }
         return view('web.auth.login');
     }
@@ -29,7 +29,7 @@ class AuthController extends Controller
         if (password_verify($request->password, $client->password)) {
             Auth::guard('client')->login($client);
             sweetalert()->success('Login efetuado com sucesso!');
-            return redirect()->route('dashboard.index');
+            return redirect()->route('client-area.dashboard.index');
         }
 
         return redirect()->back();

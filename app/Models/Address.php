@@ -9,27 +9,51 @@ class Address extends Model
     protected $table = 'addresses';
 
     protected $fillable = [
-        'city_id',
+        'nickname',
+        'client_id',
+        'state',
+        'city',
         'street',
         'neighborhood',
-        'zip_code',
+        'cep',
         'number',
         'complement',
         'observation',
+        'is_main_address',
     ];
 
-    public function users()
+    public function client()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
 
-    public function clients()
+    protected static function boot()
     {
-        return $this->belongsToMany(User::class);
+        parent::boot();
+
+        static::updating(function ($address) {
+            if ($address->is_main_address) {
+                Address::where('client_id', $address->client_id)
+                    ->where('id', '!=', $address->id)
+                    ->update(['is_main_address' => false]);
+            }
+        });
+
+        static::deleting(function ($address) {
+            if ($address->is_main_address) {
+                $otherAddress = Address::where('client_id', $address->client_id)
+                    ->where('id', '!=', $address->id)
+                    ->first();
+
+                if ($otherAddress) {
+                    $otherAddress->is_main_address = true;
+                    $otherAddress->save();
+                } else {
+                    // dont allow to delete
+                    throw new \Exception('Não foi possível deletar');
+                }
+            }
+        });
     }
 }
