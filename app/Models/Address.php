@@ -18,13 +18,13 @@ class Address extends Model
         'cep',
         'number',
         'complement',
-        'observation',
+        'reference_point',
         'is_main_address',
     ];
 
     public function client()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 
 
@@ -34,7 +34,7 @@ class Address extends Model
 
         static::updating(function ($address) {
             if ($address->is_main_address) {
-                Address::where('client_id', $address->client_id)
+                $address::where('client_id', $address->client_id)
                     ->where('id', '!=', $address->id)
                     ->update(['is_main_address' => false]);
             }

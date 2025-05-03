@@ -55,6 +55,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/imask"></script>
     @stack('scripts')
     <script src="{{ asset('assets/web/js/default.js') }}"></script>
     <style>

@@ -104,21 +104,29 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="form-check">
-                <input type="hidden" name="is_main_address" value="0">
-                <input class="form-check-input" type="checkbox" value="1" id="is_main_address"
-                    name="is_main_address"
-                    {{ old('is_main_address', $address->is_main_address ?? false) ? 'checked' : '' }}>
-                <label class="form-check-label" for="is_main_address">
-                    Endereço principal
-                </label>
+{{-- Se o cliente estiver disponivel (edit) e possuir mais de um endereço --}}
+@if (isset($client) && Auth::guard('client')->user()->addresses->count() > 1)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="hidden" name="is_main_address" value="0">
+                    <input class="form-check-input" type="checkbox" value="1" id="is_main_address"
+                        name="is_main_address"
+                        {{ old('is_main_address', $address->is_main_address ?? false) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_main_address">
+                        Endereço principal
+                    </label>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@elseif(!isset($client) && Auth::guard('client')->user()->addresses->count() > 0)
+    <input type="hidden" name="is_main_address" value="0">
+@else
+    {{-- Cadastro do primeiro endereço --}}
+    <input type="hidden" name="is_main_address" value="1">
+@endif
 
 <div class="mb-3">
     <button type="submit" class="btn btn-primary rounded-pill">

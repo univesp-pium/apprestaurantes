@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cep');
             $table->string('number')->nullabe();
             $table->string('complement')->nullable();
-            $table->text('observation')->nullable();
+            $table->text('reference_point')->nullable();
             $table->boolean('is_main_address')->default(false);
             $table->timestamps();
 

@@ -43,6 +43,11 @@ class AuthController extends Controller
 
     public function register()
     {
+        if (Auth::guard('client')->check()) {
+            sweetalert()->success('Faça logout antes de tentar se registrar');
+            return redirect()->route('client-area.dashboard.index');
+        }
+
         return view('web.auth.register');
     }
     public function register_action(Request $request)
@@ -51,7 +56,8 @@ class AuthController extends Controller
         $errors = [];
 
         try {
-            Client::create($data);
+            $client = Client::create($data);
+            Auth::guard('client')->login($client);
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
             if (app()->environment('local')) {
@@ -60,8 +66,8 @@ class AuthController extends Controller
         }
 
         if (count($errors) == 0) {
-            sweetalert()->success('Conta criada com successo!');
-            return redirect()->back();
+            sweetalert()->success('Bem vindo a sua conta! Cadastre seu endereço!');
+            return redirect()->route('client-area.addresses.index');
         } else {
             sweetalert()->error('Não foi possível atualizar o registro!');
             return redirect()->back();

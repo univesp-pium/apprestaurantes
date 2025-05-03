@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\AddressRequest;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AddressController extends Controller
 {
@@ -39,6 +40,7 @@ class AddressController extends Controller
             Address::create($data);
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
+            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
         }
 
         if (count($errors) == 0) {
@@ -56,13 +58,14 @@ class AddressController extends Controller
     public function edit(Address $address)
     {
         $address = Address::find($address->id);
+        $client = $address->client;
 
         if (!$address) {
             sweetalert()->error('Registro não encontrado!');
             return redirect()->route('client-area.addresses.index');
         }
 
-        return view('web.addresses.edit', compact('address'));
+        return view('web.addresses.edit', compact('address', 'client'));
     }
 
     /**
@@ -77,6 +80,7 @@ class AddressController extends Controller
             $address->update($data);
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
+            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
         }
 
         if (count($errors) == 0) {

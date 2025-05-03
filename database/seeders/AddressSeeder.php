@@ -24,7 +24,7 @@ class AddressSeeder extends Seeder
             'cep'               => '18000-999',
             'number'            => '999',
             'complement'        => 'Complemento',
-            'observation'       => 'Observação',
+            'reference_point'   => 'Observação',
             'is_main_address'   => true,
         ]);
     }

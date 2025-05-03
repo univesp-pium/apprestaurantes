@@ -31,7 +31,7 @@ class AddressRequest extends FormRequest
             'number'            => 'required|integer|min:1',
             'complement'        => 'nullable|string|max:255',
             'observation'       => 'nullable|string|max:1000',
-            'is_main_address'   => 'required|boolean',
+            'is_main_address'   => 'nullable|boolean',
         ];
     }
 }
