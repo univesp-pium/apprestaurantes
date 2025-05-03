@@ -20,7 +20,7 @@
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" id="email" name="email"
                   class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                  placeholder="seu@email.com" required value="{{ old('email') }}">
+                  placeholder="seu@email.com" required value="Seu email">
                 @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
