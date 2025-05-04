@@ -125,32 +125,40 @@
 @push('scripts')
     <script src="{{ asset('assets/web/js/product.js') }}"></script>
     <script>
-        function updateQuantity(isIncrement) {
-            const input = document.getElementById('product-quantity');
-            const price = parseFloat('{{ $product->price }}'.replace('.', '').replace(',', '.'));
-            let quantity = parseInt(input.value.replace('.', ''));
-            const step = {{ $product->unit->step }};
+    function parseLocaleNumber(str) {
+        return parseFloat(str.replace(/\./g, '').replace(',', '.'));
+    }
 
-            if (isIncrement) {
-                quantity += step;
-            } else if (quantity > step) {
-                quantity -= step;
-            }
+    function formatToLocaleNumber(num) {
+        return num.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
 
-            input.value = quantity.toLocaleString('pt-BR');
+    function updateQuantity(isIncrement) {
+        const input = document.getElementById('product-quantity');
+        let quantity = parseLocaleNumber(input.value);
+        const step = parseFloat("{{ $product->unit->step }}");
+        const price = parseLocaleNumber('{{ number_format($product->price, 2, ',', '.') }}');
 
-
-            const subtotal = price * quantity;
-            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        if (isIncrement) {
+            quantity += step;
+        } else if (quantity > step) {
+            quantity -= step;
         }
 
-        function incrementQuantity() {
-            updateQuantity(true);
-        }
+        input.value = formatToLocaleNumber(quantity);
 
-        function decrementQuantity() {
-            updateQuantity(false);
-        }
+        const subtotal = price * quantity;
+        document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+    }
+
+    function incrementQuantity() {
+        updateQuantity(true);
+    }
+
+    function decrementQuantity() {
+        updateQuantity(false);
+    }
+</script>
 
         document.querySelectorAll('.js-add-instruction').forEach(btn => {
             btn.addEventListener('click', () => {
