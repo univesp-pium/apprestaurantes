@@ -1,7 +1,7 @@
 @extends('admin.layouts.default')
 @section('title', 'Produtos')
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between">
@@ -28,7 +28,7 @@
                         @include('admin.products.instructions_modal', ['product' => $product])
 
                         @include('admin.products.recipes_modal', ['product' => $product])
-                        
+
                     </div>
                 </section>
 

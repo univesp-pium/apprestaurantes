@@ -26,19 +26,19 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    {{-- unity_id --}}
+    {{-- unit_id --}}
     <div class="mb-3 col-md-3">
-        <label for="unity_id" class="form-label">Unidade</label>
-        <select name="unity_id" id="unity_id" class="form-select {{ $errors->has('unity_id') ? 'is-invalid' : '' }}">
+        <label for="unit_id" class="form-label">Unidade</label>
+        <select name="unit_id" id="unit_id" class="form-select {{ $errors->has('unit_id') ? 'is-invalid' : '' }}">
             <option value="">Selecione uma opção</option>
             @foreach ($units as $unit)
                 <option value="{{ $unit->id }}"
-                    {{ old('unity_id', $product->unity_id ?? '') == $unit->id ? 'selected' : '' }}>
+                    {{ old('unit_id', $product->unit_id ?? '') == $unit->id ? 'selected' : '' }}>
                     {{ $unit->name }}
                 </option>
             @endforeach
         </select>
-        @error('unity_id')
+        @error('unit_id')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
@@ -50,7 +50,7 @@
     <div class="mb-3 col-md-12">
         <label for="description" class="form-label">Descrição</label>
         <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
-            id="description" placeholder="Digite a descrição">{{ old('description', $product->description ?? '') }}</textarea>
+            id="description" placeholder="Digite a descrição" style="min-height: 150px;">{{ old('description', $product->description ?? '') }}</textarea>
         @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror

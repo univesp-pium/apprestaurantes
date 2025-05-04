@@ -12,8 +12,9 @@ class Product extends Model
 
     protected $fillable = [
         'category_id',
-        'unity_id',
+        'unit_id',
         'title',
+        'slug',
         'description',
         'price',
         'quantity',
@@ -82,6 +83,10 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
+
+        static::creating(function ($product) {
+            $product->slug = Str::slug($product->title);
+        });
 
         static::deleting(function ($product) {
             foreach ($product->images as $image) {

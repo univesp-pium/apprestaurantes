@@ -23,7 +23,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'category_id'   => 'required|exists:categories,id',
-            'unity_id'      => 'required|exists:units,id',
+            'unit_id'      => 'required|exists:units,id',
             'title'         => 'required|string|min:3|max:255',
             'description'   => 'nullable|string',
             'price'         => 'required|string',
@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'category_id'   => 'categoria',
-            'unity_id'      => 'unidade',
+            'unit_id'      => 'unidade',
             'title'         => 'título',
             'description'   => 'descrição',
             'price'         => 'preço',

@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('unity_id');
+            $table->unsignedBigInteger('unit_id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0);
@@ -26,7 +27,7 @@ return new class extends Migration
 
             // Foreign keys
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('unity_id')->references('id')->on('units');
+            $table->foreign('unit_id')->references('id')->on('units');
         });
     }
 

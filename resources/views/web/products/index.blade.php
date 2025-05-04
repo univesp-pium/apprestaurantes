@@ -8,15 +8,9 @@
             <h2 class="text-danger text-center mb-3">Selecione uma categoria</h2>
             <div class="d-flex justify-content-center">
                 <div class="btn-group flex-wrap" role="group" aria-label="Categorias">
-                    <button class="btn btn-outline-danger filter-btn" data-category="churrasco">Churrasco</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="panela">Panela</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="recheada">Recheada</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="moida">Moída</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="bassi">Bassi</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="assar">Assar</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="bifes">Bifes</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="frango">Frango</button>
-                    <button class="btn btn-outline-danger filter-btn" data-category="suinos">Suínos</button>
+                    @foreach ($categories as $category)
+                        <a href="# {{ $category->slug }}" class="btn btn-outline-danger filter-btn">{{ $category->name }}</a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -26,70 +20,57 @@
     <section id="produtos">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col product-card" data-category="churrasco">
-                    <div class="card h-100">
-                        <img src="https://placehold.co/300x200" class="card-img-top" alt="Carne 1">
-                        <div class="card-body">
-                            <h5 class="card-title text-danger">Contra Filé 500g - R$ 29,99</h5>
-                            <div class="d-flex justify-content-center align-items-center gap-2 my-3">
-                                <button class="btn btn-danger btn-sm minus">-</button>
-                                <span class="quantity">1</span>
-                                <button class="btn btn-danger btn-sm plus">+</button>
-                            </div>
-                            <a href="{{ route('products.show', 'product') }}" class="btn btn-danger w-100">
-                                Adicionar ao Carrinho
+                @foreach ($products as $product)
+                    <div class="col product-card" data-category="churrasco">
+                        <div class="card h-100">
+                            <a href="{{ route('products.show', $product->slug) }}">
+                                <img src="{{ Storage::url($product->images->sortBy('order')->first()->image) }}"
+                                class="card-img-top rounded p-2" alt="Carne 1">
                             </a>
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-danger">{{ $product->title }} - R$
+                                    {{ $product->price }} / {{ $product->unit->abbreviation }}</h5>
+                                <div class="d-flex justify-content-center align-items-center gap-2 my-3">
+                                </div>
+                                <a href="{{ route('products.show', $product->slug) }}" class="btn btn-danger w-100">
+                                    Ver detalhes
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col product-card" data-category="panela">
-                    <div class="card h-100">
-                        <img src="https://placehold.co/300x200" class="card-img-top" alt="Carne 2">
-                        <div class="card-body">
-                            <h5 class="card-title text-danger">Coxão Mole 500g - R$ 29,99</h5>
-                            <div class="d-flex justify-content-center align-items-center gap-2 my-3">
-                                <button class="btn btn-danger btn-sm minus">-</button>
-                                <span class="quantity">1</span>
-                                <button class="btn btn-danger btn-sm plus">+</button>
-                            </div>
-                            <a href="{{ route('products.show', 'product') }}" class="btn btn-danger w-100">
-                                Adicionar ao Carrinho
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
 
-    <!-- Seção Quem Somos Nós -->
+    <!-- Produtos Relacionados -->
     <section class="my-5">
         <div class="container">
-            <h2 class="text-danger text-center mb-4">Quem somos nós?</h2>
+            <h2 class="text-danger text-center mb-4">Produtos Relacionados</h2>
             <div class="row text-center">
                 <div class="col-md-4">
-                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 1">
-                    <p class="mt-2">Profissional 1</p>
+                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Produto 1">
+                    <p class="mt-2">Produto 1</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 2">
-                    <p class="mt-2">Profissional 2</p>
+                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Produto 2">
+                    <p class="mt-2">Produto 2</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Equipe 3">
-                    <p class="mt-2">Profissional 3</p>
+                    <img src="https://placehold.co/300x200" class="img-fluid rounded" alt="Produto 3">
+                    <p class="mt-2">Produto 3</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção Promoção do Mês -->
-    <section class="my-5 text-center">
+    <!-- Promoções -->
+    {{-- <section class="my-5 text-center">
         <div class="container">
-            <h2 class="text-danger mb-4">Promoção do mês</h2>
+            <h2 class="text-danger mb-4">Promoções ativas</h2>
             <img src="https://placehold.co/500x300" class="img-fluid rounded shadow" alt="Promoção do mês">
         </div>
-    </section>
+    </section> --}}
 
     <!-- Seção Fale com a Gente -->
     <section class="my-5 text-center">

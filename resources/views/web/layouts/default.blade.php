@@ -35,7 +35,7 @@
                             <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('cart.index') }}">
                                 <i class="fa fa-shopping-cart d-none d-lg-inline" aria-hidden="true"></i>
                                 <span class="d-inline d-lg-none">Carrinho</span>
                             </a>
@@ -48,6 +48,7 @@
 
     <main>
         @yield('content')
+        @include('web.components.whatsapp', ['number' => '5511999999999'])
     </main>
 
     <footer class="bg-danger text-white text-center py-4">
@@ -56,6 +57,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/imask"></script>
+    @vite('resources/js/app.js')
     @stack('scripts')
     <script src="{{ asset('assets/web/js/default.js') }}"></script>
     <style>
