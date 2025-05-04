@@ -158,7 +158,6 @@
     function decrementQuantity() {
         updateQuantity(false);
     }
-</script>
 
         document.querySelectorAll('.js-add-instruction').forEach(btn => {
             btn.addEventListener('click', () => {
