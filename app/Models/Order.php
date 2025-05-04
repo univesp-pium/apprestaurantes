@@ -9,9 +9,14 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'product_id',
-        'user_id',
+        'client_id',
+        'discount',
+        'total',
+        'is_open',
     ];
 
-    // Relationships
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         thumbnail.addEventListener('click', function() {
             mainImage.src = this.src;
             mainImage.alt = this.alt;
-            
+
             // Add a smooth transition effect
             mainImage.classList.add('fade-in');
             setTimeout(() => {
@@ -15,16 +15,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// Quantity handling functions
-function incrementQuantity() {
-    const input = document.getElementById('product-quantity');
-    input.value = parseInt(input.value) + 1;
-}
-
-function decrementQuantity() {
-    const input = document.getElementById('product-quantity');
-    if (parseInt(input.value) > 1) {
-        input.value = parseInt(input.value) - 1;
-    }
-}

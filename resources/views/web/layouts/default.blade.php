@@ -35,7 +35,7 @@
                             <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cart.index') }}">
+                            <a class="nav-link" href="{{ route('client-area.cart.index') }}">
                                 <i class="fa fa-shopping-cart d-none d-lg-inline" aria-hidden="true"></i>
                                 <span class="d-inline d-lg-none">Carrinho</span>
                             </a>

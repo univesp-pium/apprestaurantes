@@ -32,50 +32,66 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="p-4 d-flex flex-column">
-                        <h1 class="title">{{ $product->title }}</h1>
-                        <p class="description">
-                            {{ $product->description }}
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            <div class="price">R$ {{ $product->price }} / {{ $product->unit->abbreviation }}</div>
-                            <div class="quantity d-flex align-items-center gap-2">
-                                <button type="button" class="btn btn-outline-secondary btn-sm"
-                                    onclick="decrementQuantity()">-</button>
-                                <input type="text" class="form-control text-center" value="1" min="1"
-                                    id="product-quantity" style="width: 70px;" step="{{ $product->unit->step }}">
-                                <button type="button" class="btn btn-outline-secondary btn-sm"
-                                    onclick="incrementQuantity()">+</button>
-                            </div>
-                        </div>
-                        <div class="subtotal mt-2 d-flex align-items-center">
-                            Subtotal: <span class="ms-2" id="subtotal">R$ {{ $product->price }}</span>
-                        </div>
-                        @if ($product->instructions->count() > 0)
-                            <hr>
-                            <div class="instructions">
-                                <div class="title">Adicionar preferências</div>
-                                <textarea class="form-control" name="" id=""></textarea>
-                                <div class="d-flex mt-3 gap-2">
-                                    @foreach ($product->instructions as $instruction)
-                                        <button type="button" class="btn btn-outline-secondary js-add-instruction"
-                                            data-instruction="{{ $instruction->name }}">
-                                            {{ $instruction->name }}
-                                        </button>
-                                    @endforeach
-                                    <span class="btn btn-link rounded-pill text-decoration-none">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        ou escreva
-                                    </span>
+                        <form action="{{ route('client-area.cart.add_item') }}" method="POST">
+                            @csrf
+
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                            <h1 class="title">{{ $product->title }}</h1>
+                            <p class="description">
+                                {{ $product->description }}
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                @if ($product->discount > 0)
+                                    <div class="price">
+                                        <span class="badge bg-success">$$</span>
+                                        R$ {{ $product->getPriceWithDiscount() }} / {{ $product->unit->abbreviation }}
+                                    </div>
+                                @else
+                                    <div class="price">R$ {{ $product->price }} / {{ $product->unit->abbreviation }}</div>
+                                @endif
+                                <div class="quantity d-flex align-items-center gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                        onclick="decrementQuantity()">-</button>
+                                    <input type="text" class="form-control text-center" value="1" min="1"
+                                        name="quantity" id="product-quantity" style="width: 70px;"
+                                        step="{{ $product->unit->step }}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                        onclick="incrementQuantity()">+</button>
                                 </div>
-
                             </div>
-                        @endif
+                            <div class="subtotal mt-2 d-flex align-items-center">
+                                Subtotal: <span class="ms-2" id="subtotal">R$
+                                    {{ $product->getPriceWithDiscount() }}</span>
+                            </div>
+                            @if ($product->instructions->count() > 0)
+                                <hr>
+                                <div class="instructions">
+                                    <div class="title">Adicionar preferências</div>
+                                    <textarea class="form-control" name="" id=""></textarea>
+                                    <div class="d-flex mt-3 gap-2">
+                                        @foreach ($product->instructions as $instruction)
+                                            <button type="button" class="btn btn-outline-secondary js-add-instruction"
+                                                data-instruction="{{ $instruction->name }}">
+                                                {{ $instruction->name }}
+                                            </button>
+                                        @endforeach
+                                        <span class="btn btn-link rounded-pill text-decoration-none">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            ou escreva
+                                        </span>
+                                    </div>
 
-                        <div class="buttons">
-                            <a href="{{ route('cart.index') }}" class="btn btn-secondary rounded-pill">
-                                Adicionar ao carrinho
-                            </a>
-                        </div>
+                                </div>
+                            @endif
+
+                            <div class="buttons">
+                                <button class="btn btn-secondary rounded-pill">
+                                    Adicionar ao carrinho
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -125,39 +141,42 @@
 @push('scripts')
     <script src="{{ asset('assets/web/js/product.js') }}"></script>
     <script>
-    function parseLocaleNumber(str) {
-        return parseFloat(str.replace(/\./g, '').replace(',', '.'));
-    }
-
-    function formatToLocaleNumber(num) {
-        return num.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-    }
-
-    function updateQuantity(isIncrement) {
-        const input = document.getElementById('product-quantity');
-        let quantity = parseLocaleNumber(input.value);
-        const step = parseFloat("{{ $product->unit->step }}");
-        const price = parseLocaleNumber('{{ $product->price }}');
-
-        if (isIncrement) {
-            quantity += step;
-        } else if (quantity > step) {
-            quantity -= step;
+        function parseLocaleNumber(str) {
+            return parseFloat(str.replace(/\./g, '').replace(',', '.'));
         }
 
-        input.value = formatToLocaleNumber(quantity);
+        function formatToLocaleNumber(num) {
+            return num.toLocaleString('pt-BR', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+        }
 
-        const subtotal = price * quantity;
-        document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-    }
+        function updateQuantity(isIncrement) {
+            const input = document.getElementById('product-quantity');
+            let quantity = parseLocaleNumber(input.value);
+            const step = parseFloat("{{ $product->unit->step }}");
+            const price = parseLocaleNumber('{{ $product->getPriceWithDiscount() }}');
 
-    function incrementQuantity() {
-        updateQuantity(true);
-    }
+            if (isIncrement) {
+                quantity += step;
+            } else if (quantity > step) {
+                quantity -= step;
+            }
 
-    function decrementQuantity() {
-        updateQuantity(false);
-    }
+            input.value = formatToLocaleNumber(quantity);
+
+            const subtotal = price * quantity;
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        }
+
+        function incrementQuantity() {
+            updateQuantity(true);
+        }
+
+        function decrementQuantity() {
+            updateQuantity(false);
+        }
 
         document.querySelectorAll('.js-add-instruction').forEach(btn => {
             btn.addEventListener('click', () => {

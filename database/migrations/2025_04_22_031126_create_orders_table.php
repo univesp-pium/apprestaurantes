@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('client_id');
+            $table->float('discount', 10, 2)->default(0);
+            $table->float('total', 10, 2)->comment("Somente total sem desconto");
+            $table->boolean('is_open')->default(true);
             $table->timestamps();
+
+            //Foreign keys
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 

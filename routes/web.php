@@ -18,10 +18,15 @@ Route::post('/register', [AuthController::class, 'register_action'])->name('auth
 
 Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/produtos/{product_slug}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
-Route::Get('/carrinho/confirmar', [CartController::class, 'confirm'])->name('cart.confirm');
 
 Route::prefix('area-do-cliente')->middleware(['client.auth'])->name('client-area.')->group(function () {
+
+    Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/carrinho/confirmar', [CartController::class, 'confirm'])->name('cart.confirm');
+    Route::post('/carrinho/adicionar', [CartController::class, 'add_item'])->name('cart.add_item');
+    Route::post('/carrinho/remover', [CartController::class, 'delete_item'])->name('cart.del_item');
+    Route::post('/carrinho/finalizar', [CartController::class, 'finish_cart'])->name('cart.finish');
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/pedidos', [OrderController::class, 'orders'])->name('orders.index');
     Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('orders.show'); // tela de sucesso / também mostra os status dos pedidos

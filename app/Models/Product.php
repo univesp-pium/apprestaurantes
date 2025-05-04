@@ -23,6 +23,19 @@ class Product extends Model
         'active',
     ];
 
+    //TODO
+    public function getPriceFloat() {
+        return $this->attributes['price'];
+    }
+    //TODO
+    public function getDiscountFloat() {
+        return $this->attributes['discount'];
+    }
+
+    public function getPriceWithDiscount() {
+        return $this->getPriceFloat() - $this->getDiscountFloat();
+    }
+
     public function getPriceAttribute($value)
     {
         return number_format($value, 2, ',', '.');
@@ -78,6 +91,11 @@ class Product extends Model
     public function additionals()
     {
         return $this->hasMany(Additional::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
     }
 
     protected static function boot()
