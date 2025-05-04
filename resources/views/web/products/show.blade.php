@@ -137,7 +137,7 @@
         const input = document.getElementById('product-quantity');
         let quantity = parseLocaleNumber(input.value);
         const step = parseFloat("{{ $product->unit->step }}");
-        const price = parseLocaleNumber('{{ number_format($product->price, 2, ',', '.') }}');
+        const price = parseLocaleNumber('{{ $product->price }}');
 
         if (isIncrement) {
             quantity += step;
