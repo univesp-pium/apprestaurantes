@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function orders()
     {
-        return view('web.orders.index');
+        $orders = Order::where('client_id', Auth::guard('client')->user()->id)->paginate(15);
+        return view('web.orders.index', compact('orders'));
     }
 
-    public function orders_show($order)
+    public function show(Order $order)
     {
-        return view('web.orders.index');
+        if (!$order) {
+            sweetalert()->error('Pedido não encontrado!');
+            return redirect()->route('client-area.orders.index');
+        }
+        return view('web.orders.show', compact('order'));
     }
 }

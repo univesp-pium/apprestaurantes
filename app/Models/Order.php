@@ -12,9 +12,11 @@ class Order extends Model
         'client_id',
         'discount',
         'total',
+        'total_with_discount',
         'is_open',
     ];
 
+    // Relationships
     public function products()
     {
         return $this->belongsToMany(Product::class);

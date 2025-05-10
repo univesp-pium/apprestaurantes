@@ -36,6 +36,12 @@
         </div>
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
+
+            <a href="{{ route('home') }}" class="btn btn-sm btn-outline-danger rounded-3">
+                <i class="fa-solid fa-globe"></i>
+                Site
+            </a>
+
             <ul class="list-unstyled">
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"

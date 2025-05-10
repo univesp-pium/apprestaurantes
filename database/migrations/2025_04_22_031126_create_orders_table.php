@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->float('discount', 10, 2)->default(0);
-            $table->float('total', 10, 2)->comment("Somente total sem desconto");
+            $table->float('total', 10, 2);
+            $table->float('total_with_discount', 10, 2);
             $table->boolean('is_open')->default(true);
             $table->timestamps();
 

@@ -45,10 +45,10 @@
                                 @if ($product->discount > 0)
                                     <div class="price">
                                         <span class="badge bg-success">$$</span>
-                                        R$ {{ $product->getPriceWithDiscount() }} / {{ $product->unit->abbreviation }}
+                                        R$ {{ $product->getPriceWithDiscountFormatted() }} / {{ $product->unit->abbreviation }}
                                     </div>
                                 @else
-                                    <div class="price">R$ {{ $product->price }} / {{ $product->unit->abbreviation }}</div>
+                                    <div class="price">R$ {{ $product->getPriceFormatted() }} / {{ $product->unit->abbreviation }}</div>
                                 @endif
                                 <div class="quantity d-flex align-items-center gap-2">
                                     <button type="button" class="btn btn-outline-secondary btn-sm"
@@ -62,7 +62,7 @@
                             </div>
                             <div class="subtotal mt-2 d-flex align-items-center">
                                 Subtotal: <span class="ms-2" id="subtotal">R$
-                                    {{ $product->getPriceWithDiscount() }}</span>
+                                    {{ $product->getPriceWithDiscountFormatted() }}</span>
                             </div>
                             @if ($product->instructions->count() > 0)
                                 <hr>
@@ -119,7 +119,7 @@
                                 @endif
                             </a>
                             <p class="mt-2">{{ $relatedProduct->title }}</p>
-                            <p class="text-danger">R$ {{ $relatedProduct->price }} /
+                            <p class="text-danger">R$ {{ $relatedProduct->getPriceFormatted() }} /
                                 {{ $relatedProduct->unit->abbreviation }}
                             </p>
                             <a href="{{ route('products.show', $relatedProduct->slug) }}"
@@ -156,7 +156,7 @@
             const input = document.getElementById('product-quantity');
             let quantity = parseLocaleNumber(input.value);
             const step = parseFloat("{{ $product->unit->step }}");
-            const price = parseLocaleNumber('{{ $product->getPriceWithDiscount() }}');
+            const price = parseLocaleNumber('{{ $product->getPriceWithDiscountFormatted() }}');
 
             if (isIncrement) {
                 quantity += step;

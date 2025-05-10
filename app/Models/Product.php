@@ -23,43 +23,45 @@ class Product extends Model
         'active',
     ];
 
-    //TODO
-    public function getPriceFloat() {
-        return $this->attributes['price'];
+    public function getPriceFormatted()
+    {
+        return number_format($this->attributes['price'], 2, ',', '.');
     }
-    //TODO
-    public function getDiscountFloat() {
+
+    public function getDiscountFormatted()
+    {
         return $this->attributes['discount'];
     }
 
-    public function getPriceWithDiscount() {
-        return $this->getPriceFloat() - $this->getDiscountFloat();
+    public function getPriceWithDiscount()
+    {
+        return $this->price - $this->discount;
     }
 
-    public function getPriceAttribute($value)
+    public function getPriceWithDiscountFormatted()
     {
-        return number_format($value, 2, ',', '.');
+        return number_format($this->getPriceWithDiscount(), 2, ',', '.');
     }
 
     public function setPriceAttribute($value)
     {
         if (empty($value))
             return;
-        $value = str_replace('.', '', $value);
-        $this->attributes['price'] = str_replace(',', '.', $value);
-    }
+        if (is_float($value))
+            return $this->attributes['price'] = $value;
 
-    public function getDiscountAttribute($value)
-    {
-        return number_format($value, 2, ',', '.');
+        $value = str_replace('.', '', $value);
+        $this->attributes['price'] = (float)str_replace(',', '.', $value);
     }
 
     public function setDiscountAttribute($value)
     {
         if (empty($value))
             return;
+        if (is_float($value))
+            return $this->attributes['price'] = $value;
         $value = str_replace('.', '', $value);
-        $this->attributes['discount'] = str_replace(',', '.', $value);
+        $this->attributes['discount'] = (float)str_replace(',', '.', $value);
     }
 
     // Relationships

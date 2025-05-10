@@ -5,15 +5,27 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductOrder;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function index()
     {
-        return view('web.cart.index');
+        $order = Order::where('client_id', Auth::guard('client')->user()->id)
+                      ->where('is_open', true)
+                      ->with(['products' => function($query) {
+                          $query->withPivot('quantity', 'price', 'discount', 'subtotal', 'observations');
+                      }])
+                      ->first();
+        // dd($order);
+        if (!$order) {
+            sweetalert()->error('Carrinho não encontrado!');
+            return redirect()->route('client-area.cart.index');
+        }
+        return view('web.cart.index', compact('order'));
     }
 
     public function confirm()
@@ -23,6 +35,10 @@ class CartController extends Controller
 
     public function add_item(Request $request)
     {
+        $errors = [];
+        DB::beginTransaction();
+
+        $request->quantity = str_replace(',', '.', $request->quantity);
 
         $product = Product::find($request->product_id);
         if (!$product) {
@@ -32,61 +48,89 @@ class CartController extends Controller
 
         if (Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->get()->count() > 0) {
             $order = Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->first();
-            $product_order_found = ProductOrder::where('order_id', $order->id)->where('product_id', $product->id)->first();
+            $order_product_found = OrderProduct::where('order_id', $order->id)->where('product_id', $product->id)->first();
 
             // se o produto estiver presente neste pedido, atualizar
-            if ($product_order_found) {
+            if ($order_product_found) {
 
-                $product_order_found->update([
-                    'quantity'      => $request->quantity,
-                    'price'         => $product->getPriceFloat(),
-                    'discount'      => $product->discount,
-                    'subtotal'      => ($product->getPriceFloat() - $product->getDiscountFloat()) * $request->quantity,
-                    'observations'  => $request->observations,
-                ]);
+                try {
 
-                $totalPrice = ProductOrder::where('order_id', $order->id)->sum('subtotal');
-                $order->update([
-                    'total' => $totalPrice,
-                ]);
+                    $order_product_found->update([
+                        'quantity'      => $request->quantity,
+                        'price'         => $product->price,
+                        'discount'      => $product->discount,
+                        'subtotal'      => ($product->price - $product->discount) * $request->quantity,
+                        'observations'  => $request->observations,
+                    ]);
+
+                    $totalPrice = OrderProduct::where('order_id', $order->id)->sum('subtotal');
+                    $order->update([
+                        'total' => $totalPrice,
+                    ]);
+                } catch (\Throwable $th) {
+                    $errors[] = $th->getMessage();
+                    dd($errors);
+                }
             } else {
 
                 // TODO
-                ProductOrder::create([
-                    'product_id'    => $product->id,
-                    'order_id'      => $order->id,
-                    'quantity'      => $request->quantity,
-                    'price'         => $product->getPriceFloat(),
-                    'discount'      => $product->discount,
-                    'subtotal'      => ($product->getPriceFloat() - $product->getDiscountFloat()) * $request->quantity,
-                    'observations'  => $request->observations,
-                ]);
+                try {
+                    OrderProduct::create([
+                        'product_id'                => $product->id,
+                        'order_id'                  => $order->id,
+                        'quantity'                  => $request->quantity,
+                        'price'                     => $product->price,
+                        'discount'                  => $product->discount,
+                        'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
+                        'subtotal_with_discount'    => ($product->price - $product->discount) * $request->quantity,
+                        'observations'              => $request->observations,
+                    ]);
 
-                $totalPrice = ProductOrder::where('order_id', $order->id)->sum('subtotal');
-                $order->update([
-                    'total' => $totalPrice,
-                ]);
+                    $totalPrice = OrderProduct::where('order_id', $order->id)->sum('subtotal');
+                    $order->update([
+                        'total' => $totalPrice,
+                    ]);
+                } catch (\Throwable $th) {
+                    $errors[] = $th->getMessage();
+                    dd($errors, $request->all(), $product);
+                }
             }
         } else {
 
-            $order =  Order::create([
-                'client_id' => Auth::guard('client')->user()->id,
-                'total' => ($product->getPriceFloat() - $product->getDiscountFloat()) * $request->quantity,
-            ]);
+            try {
 
-            // TODO
-            ProductOrder::create([
-                'product_id'    => $product->id,
-                'order_id'      => $order->id,
-                'quantity'      => $request->quantity,
-                'price'         => $product->getPriceFloat(),
-                'discount'      => $product->discount,
-                'subtotal'      => ($product->getPriceFloat() - $product->getDiscountFloat()) * $request->quantity,
-                'observations'  => $request->observations,
-            ]);
+                $order =  Order::create([
+                    'client_id' => Auth::guard('client')->user()->id,
+                    'total_with_discount' => ($product->price - $product->discount) * $request->quantity,
+                    'total' => ($product->price - $product->discount) * $request->quantity,
+                ]);
+
+                // TODO
+                OrderProduct::create([
+                    'product_id'                => $product->id,
+                    'order_id'                  => $order->id,
+                    'quantity'                  => $request->quantity,
+                    'price'                     => $product->price,
+                    'discount'                  => $product->discount,
+                    'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
+                    'subtotal_with_discount'    => ($product->price - $product->discount) * $request->quantity,
+                    'observations'              => $request->observations,
+                ]);
+            } catch (\Throwable $th) {
+                $errors[] = $th->getMessage();
+                dd($errors, $request->all(), $product);
+            }
         }
 
-        return redirect()->back();
+        if (count($errors) == 0) {
+            DB::commit();
+            sweetalert()->success('Item adicionado ao carrinho com sucesso!');
+            return redirect()->route('client-area.cart.index');
+        } else {
+            DB::rollBack();
+            sweetalert()->error('Não foi possível adicionar o item ao carrinho!');
+            return redirect()->back();
+        }
     }
 
     public function delete_item(Request $request) {}

@@ -2,40 +2,55 @@
 @section('title', 'Carrinho')
 @section('content')
 
-    <h2 class="text-center text-danger mb-4">Itens Selecionados</h2>
+    <h2 class="text-center text-danger mt-5">Itens Selecionados</h2>
     <div id="card-container" class="mb-5"></div>
 
-    <section class="related-products mb-5">
+    <section class="related-products mt-5">
         <div class="container">
-            <h3 class="mb-3">Produtos Relacionados</h3>
-            <div class="row g-3">
-                <div class="col-md-4 d-flex align-items-center gap-2">
-                    <img src="https://placehold.co/30x30" alt="Carvão" class="rounded">
-                    <span>Carvão</span>
-                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="carvao">−</button>
-                    <span class="fw-bold related-qty" id="carvao">0</span>
-                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="carvao">+</button>
-                </div>
-                <div class="col-md-4 d-flex align-items-center gap-2">
-                    <img src="https://placehold.co/30x30" alt="Linguiça" class="rounded">
-                    <span>Linguiça</span>
-                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="linguica">−</button>
-                    <span class="fw-bold related-qty" id="linguica">0</span>
-                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="linguica">+</button>
-                </div>
-                <div class="col-md-4 d-flex align-items-center gap-2">
-                    <img src="https://placehold.co/30x30" alt="Acendedor" class="rounded">
-                    <span>Acendedor</span>
-                    <button class="btn btn-outline-danger btn-sm related-minus" data-item="acendedor">−</button>
-                    <span class="fw-bold related-qty" id="acendedor">0</span>
-                    <button class="btn btn-outline-danger btn-sm related-plus" data-item="acendedor">+</button>
+            <div class="row">
+                <div class="col-12">
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                                <th>Desconto</th>
+                                <th>Subtotal</th>
+                                <th>Valor Total</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($order->products as $product)
+                            @dd($product->pivot->quantity)
+                                <tr>
+                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->pivot->quantity }}</td>
+                                    <td>R$ {{ $product->getPriceFormatted() }}</td>
+                                    <td>R$ {{ $product->getDiscountFormatted() }}</td>
+                                    <td>R$ {{ $product->getPriceWithDiscountFormatted() }}</td>
+                                    <td>R$ {{ $product->getPriceWithDiscountFormatted() * $product->pivot->quantity }}</td>
+                                    <td>
+                                        <a href="{{ route('products.show', $product->slug) }}"
+                                            class="btn btn-primary btn-sm rounded-pill">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
 
     <div class="text-center">
-        <a href="{{ route('cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
+        <a href="{{ route('client-area.cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
     </div>
 
 @endsection

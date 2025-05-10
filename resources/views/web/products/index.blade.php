@@ -33,7 +33,7 @@
                             </a>
                             <div class="card-body d-flex flex-column justify-content-end">
                                 <h5 class="card-title text-center text-danger">{{ $product->title }} - R$
-                                    {{ $product->price }} / {{ $product->unit->abbreviation }}</h5>
+                                    {{ $product->getPriceFormatted() }} / {{ $product->unit->abbreviation }}</h5>
                                 <div class="d-flex justify-content-center align-items-center gap-2 my-3">
                                 </div>
                                 <a href="{{ route('products.show', $product->slug) }}" class="btn btn-danger w-100">
