@@ -36,6 +36,11 @@
     margin: 1rem 0;
 }
 
+.products-detail .discount {
+    font-size: 1rem !important;
+    color: #414952;
+}
+
 .products-detail .quantity {
     margin: 1rem 0;
 }

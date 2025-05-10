@@ -9,47 +9,75 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Quantidade</th>
-                                <th>Preço</th>
-                                <th>Desconto</th>
-                                <th>Subtotal</th>
-                                <th>Valor Total</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($order->products as $product)
-                            @dd($product->pivot->quantity)
+                    @if (isset($order) && $order->products->count() > 0)
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{{ $product->title }}</td>
-                                    <td>{{ $product->pivot->quantity }}</td>
-                                    <td>R$ {{ $product->getPriceFormatted() }}</td>
-                                    <td>R$ {{ $product->getDiscountFormatted() }}</td>
-                                    <td>R$ {{ $product->getPriceWithDiscountFormatted() }}</td>
-                                    <td>R$ {{ $product->getPriceWithDiscountFormatted() * $product->pivot->quantity }}</td>
-                                    <td>
-                                        <a href="{{ route('products.show', $product->slug) }}"
-                                            class="btn btn-primary btn-sm rounded-pill">
-                                            <i class="fas fa-edit"></i>
-                                            Editar
-                                        </a>
-                                    </td>
+                                    <th>Nome</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço</th>
+                                    <th>Subtotal</th>
+                                    <th>Editar</th>
+                                    <th>Remover</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($order->products as $product)
+                                    <tr>
+                                        <td>{{ $product->title }}</td>
+                                        <td>{{ $product->pivot->quantity }}</td>
+                                        <td>
+                                            @if ($product->discount > 0)
+                                                <span class="text-decoration-line-through text-muted me-2">R$
+                                                    {{ number_format($product->price, 2, ',', '.') }}
+                                                </span>
+                                            @endif
+                                            R$ {{ number_format($product->price - $product->discount, 2, ',', '.') }}
+                                        </td>
+                                        <td>
+                                            @if ($product->discount > 0)
+                                                <span class="text-decoration-line-through text-muted me-2">R$
+                                                    {{ number_format($product->price * $product->pivot->quantity, 2, ',', '.') }}
+                                                </span>
+                                            @endif
+                                            R$
+                                            {{ number_format(($product->price - $product->discount) * $product->pivot->quantity, 2, ',', '.') }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('products.show', $product->slug) }}"
+                                                class="btn btn-primary btn-sm rounded-pill">
+                                                <i class="fas fa-edit"></i>
+                                                Editar
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('client-area.cart.del_item') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit"
+                                                    class="js-delete-button btn btn-danger btn-sm rounded-pill">
+                                                    <i class="fas fa-trash"></i>
+                                                    Remover
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="alert alert-info">
+                            Seu carrinho esta vazio!
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
 
     <div class="text-center">
+        <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Ver mais produtos</a>
         <a href="{{ route('client-area.cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
     </div>
 

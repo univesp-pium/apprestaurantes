@@ -15,16 +15,12 @@ class CartController extends Controller
     public function index()
     {
         $order = Order::where('client_id', Auth::guard('client')->user()->id)
-                      ->where('is_open', true)
-                      ->with(['products' => function($query) {
-                          $query->withPivot('quantity', 'price', 'discount', 'subtotal', 'observations');
-                      }])
-                      ->first();
-        // dd($order);
-        if (!$order) {
-            sweetalert()->error('Carrinho não encontrado!');
-            return redirect()->route('client-area.cart.index');
-        }
+            ->where('is_open', true)
+            ->with(['products' => function ($query) {
+                $query->withPivot('quantity', 'price', 'discount', 'subtotal', 'observations');
+            }])
+            ->first();
+
         return view('web.cart.index', compact('order'));
     }
 
@@ -38,7 +34,7 @@ class CartController extends Controller
         $errors = [];
         DB::beginTransaction();
 
-        $request->quantity = str_replace(',', '.', $request->quantity);
+        $request['quantity'] = str_replace(',', '.', $request->quantity);
 
         $product = Product::find($request->product_id);
         if (!$product) {
@@ -133,7 +129,45 @@ class CartController extends Controller
         }
     }
 
-    public function delete_item(Request $request) {}
+    public function delete_item(Request $request)
+    {
+        $errors = [];
+        DB::beginTransaction();
+
+        $item = OrderProduct::where('order_id', $request->order_id)->where('product_id', $request->product_id)->first();
+        $order = Order::find($request->order_id);
+
+        if (!$item) {
+            sweetalert()->error('Item não encontrado!');
+            return redirect()->back();
+        }
+
+        try {
+            $item->delete();
+        } catch (\Throwable $th) {
+            $errors[] = $th->getMessage();
+            dd($errors, $request->all());
+        }
+
+        try {
+            if ($order->products->count() == 0) {
+                $order->delete();
+            }
+        } catch (\Throwable $th) {
+            $errors[] = $th->getMessage();
+            dd($errors, $request->all());
+        }
+
+        if (count($errors) == 0) {
+            DB::commit();
+            sweetalert()->success('Item removido do carrinho com sucesso!');
+            return redirect()->route('client-area.cart.index');
+        } else {
+            DB::rollBack();
+            sweetalert()->error('Erro ao remover item!');
+            return redirect()->back();
+        }
+    }
 
     public function finish_cart(Request $request) {}
 }

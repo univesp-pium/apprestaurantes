@@ -44,11 +44,19 @@
                             <div class="d-flex justify-content-between">
                                 @if ($product->discount > 0)
                                     <div class="price">
-                                        <span class="badge bg-success">$$</span>
-                                        R$ {{ $product->getPriceWithDiscountFormatted() }} / {{ $product->unit->abbreviation }}
+                                        <span class="discount text-decoration-line-through text-muted me-2">
+                                            {{ number_format($product->price, 2, ',', '.') }} /
+                                            {{ $product->unit->abbreviation }}
+                                        </span>
+
+                                        R$
+                                        {{ number_format($product->price - $product->discount, 2, ',', '.') }} /
+                                        {{ $product->unit->abbreviation }}
+                                        </span>
                                     </div>
                                 @else
-                                    <div class="price">R$ {{ $product->getPriceFormatted() }} / {{ $product->unit->abbreviation }}</div>
+                                    <div class="price">R$ {{ number_format($product->price, 2, ',', '.') }} /
+                                        {{ $product->unit->abbreviation }}</div>
                                 @endif
                                 <div class="quantity d-flex align-items-center gap-2">
                                     <button type="button" class="btn btn-outline-secondary btn-sm"
@@ -62,7 +70,7 @@
                             </div>
                             <div class="subtotal mt-2 d-flex align-items-center">
                                 Subtotal: <span class="ms-2" id="subtotal">R$
-                                    {{ $product->getPriceWithDiscountFormatted() }}</span>
+                                    {{ number_format($product->price, 2, ',', '.') }}</span>
                             </div>
                             @if ($product->instructions->count() > 0)
                                 <hr>
@@ -119,7 +127,7 @@
                                 @endif
                             </a>
                             <p class="mt-2">{{ $relatedProduct->title }}</p>
-                            <p class="text-danger">R$ {{ $relatedProduct->getPriceFormatted() }} /
+                            <p class="text-danger">R$ {{ number_format($relatedProduct->price, 2, ',', '.') }} /
                                 {{ $relatedProduct->unit->abbreviation }}
                             </p>
                             <a href="{{ route('products.show', $relatedProduct->slug) }}"
@@ -156,7 +164,7 @@
             const input = document.getElementById('product-quantity');
             let quantity = parseLocaleNumber(input.value);
             const step = parseFloat("{{ $product->unit->step }}");
-            const price = parseLocaleNumber('{{ $product->getPriceWithDiscountFormatted() }}');
+            const price = parseLocaleNumber('{{ number_format($product->price - $product->discount, 2, ',', '.') }}');
 
             if (isIncrement) {
                 quantity += step;
