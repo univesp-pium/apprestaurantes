@@ -13,6 +13,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>Imagem</th>
                                     <th>Nome</th>
                                     <th>Quantidade</th>
                                     <th>Preço</th>
@@ -24,6 +25,19 @@
                             <tbody>
                                 @foreach ($order->products as $product)
                                     <tr>
+                                        <td>
+                                            <a href="{{ route('products.show', $product->slug) }}">
+                                                @if ($product->images->count() > 0)
+                                                    <img src="{{ Storage::url($product->images->first()->image) }}"
+                                                        class="img-fluid rounded" alt="Produto 1" width="30"
+                                                        height="20" alt="{{ $product->title }}">
+                                                @else
+                                                    <img src="https://placehold.co/30x20" class="img-fluid rounded"
+                                                        alt="Produto 1" width="30" height="20"
+                                                        alt="{{ $product->title }}">
+                                                @endif
+                                            </a>
+                                        </td>
                                         <td>{{ $product->title }}</td>
                                         <td>{{ number_format($product->pivot->quantity, 3, ',', '.') }} /
                                             {{ $product->unit->abbreviation }}</td>

@@ -1,7 +1,8 @@
 <h2>Gerenciar Imagens</h2>
 
 <!-- Dropzone -->
-<form action="{{ route('admin.products.images.upload', ['product' => $product->id], true) }}" class="dropzone" id="dropzone">
+<form action="{{ route('admin.products.images.upload', ['product' => $product->id], true) }}" class="dropzone"
+    id="dropzone">
     @csrf
 </form>
 
@@ -67,16 +68,22 @@
             },
             removedfile: function(file) {
                 let id = file.previewElement.getAttribute("data-id") || file.name;
-                let url = `{{ route('admin.products.images.delete', ['product' => $product->id, 'image' => ':image'], true) }}`.replace(
-                    ':image', id);
+                let url =
+                    `{{ route('admin.products.images.delete', ['product' => $product->id, 'image' => ':image'], true) }}`
+                    .replace(
+                        ':image', id);
                 if (id) {
-                    swal({
-                        title: "Você tem certeza?",
+                    Swal.fire({
+                        title: 'Tem certeza?',
                         text: "Essa ação não pode ser desfeita!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    }).then((willDelete) => {
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sim, deletar!',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        let willDelete = result.isConfirmed;
                         if (willDelete) {
                             fetch(url, {
                                 method: "DELETE",
