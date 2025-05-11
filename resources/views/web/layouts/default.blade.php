@@ -28,18 +28,35 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('client-area.cart.index') }}">
-                                <i class="fa fa-shopping-cart d-none d-lg-inline" aria-hidden="true"></i>
-                                <span class="d-inline d-lg-none">Carrinho</span>
-                            </a>
-                        </li>
+                        @if (!Auth::guard('client')->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
+                            </li>
+                        @else
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Olá, {{ Auth::guard('client')->user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="{{ route('client-area.dashboard.index') }}">Minha Conta</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('auth.logout_action') }}">Logout</a></li>
+                                    </ul>
+                                </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('client-area.cart.index') }}">
+                                    <i class="fa fa-shopping-cart d-none d-lg-inline" aria-hidden="true"></i>
+                                    <span class="d-inline d-lg-none">Carrinho</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

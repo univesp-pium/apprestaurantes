@@ -30,6 +30,8 @@ class AuthController extends Controller
         if (password_verify($request->password, $client->password)) {
             Auth::guard('client')->login($client);
             sweetalert()->success('Login efetuado com sucesso!');
+            if ($request->url)
+                return redirect($request->url);
             return redirect()->route('client-area.dashboard.index');
         }
 
@@ -39,6 +41,7 @@ class AuthController extends Controller
     public function logout_action()
     {
         Auth::guard('client')->logout();
+        sweetalert()->success('Logout efetuado com sucesso!');
         return redirect('/');
     }
 

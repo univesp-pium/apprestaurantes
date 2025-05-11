@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="p-4 d-flex flex-column">
-                        <form action="{{ route('client-area.cart.add_item') }}" method="POST">
+                        <form action="{{ route('client-area.cart.add_item') }}" method="POST" id="addToCartForm">
                             @csrf
 
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -93,13 +93,17 @@
                                 </div>
                             @endif
 
-                            <div class="buttons">
-                                <button class="btn btn-secondary rounded-pill">
-                                    Adicionar ao carrinho
-                                </button>
-                            </div>
 
                         </form>
+                        <div class="buttons">
+                            @if (Auth::guard('client')->check())
+                                <button type="submit" class="btn btn-secondary rounded-pill" form="addToCartForm">
+                                    Adicionar ao carrinho
+                                </button>
+                            @else
+                                @include('web.products.login_modal')
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

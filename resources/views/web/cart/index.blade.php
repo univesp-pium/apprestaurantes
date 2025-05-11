@@ -78,8 +78,12 @@
     </section>
 
     <div class="text-center">
-        <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Ver mais produtos</a>
-        <a href="{{ route('client-area.cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
+        @if (isset($order) && $order->products->count() > 0)
+            <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Ver mais produtos</a>
+            <a href="{{ route('client-area.cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar Compra</a>
+        @else
+            <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Escolher produtos</a>
+        @endif
     </div>
 
 @endsection
