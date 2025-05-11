@@ -25,7 +25,8 @@
                                 @foreach ($order->products as $product)
                                     <tr>
                                         <td>{{ $product->title }}</td>
-                                        <td>{{ $product->pivot->quantity }}</td>
+                                        <td>{{ number_format($product->pivot->quantity, 3, ',', '.') }} /
+                                            {{ $product->unit->abbreviation }}</td>
                                         <td>
                                             @if ($product->discount > 0)
                                                 <span class="text-decoration-line-through text-muted me-2">R$

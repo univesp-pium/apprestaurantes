@@ -9,6 +9,7 @@ use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -65,7 +66,7 @@ class CartController extends Controller
                     ]);
                 } catch (\Throwable $th) {
                     $errors[] = $th->getMessage();
-                    dd($errors);
+                    (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
                 }
             } else {
 
@@ -88,7 +89,7 @@ class CartController extends Controller
                     ]);
                 } catch (\Throwable $th) {
                     $errors[] = $th->getMessage();
-                    dd($errors, $request->all(), $product);
+                    (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
                 }
             }
         } else {
@@ -114,7 +115,7 @@ class CartController extends Controller
                 ]);
             } catch (\Throwable $th) {
                 $errors[] = $th->getMessage();
-                dd($errors, $request->all(), $product);
+                (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
             }
         }
 
@@ -146,7 +147,7 @@ class CartController extends Controller
             $item->delete();
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
-            dd($errors, $request->all());
+            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
         }
 
         try {
@@ -155,7 +156,7 @@ class CartController extends Controller
             }
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
-            dd($errors, $request->all());
+            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
         }
 
         if (count($errors) == 0) {

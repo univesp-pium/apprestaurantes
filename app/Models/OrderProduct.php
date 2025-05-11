@@ -25,8 +25,9 @@ class OrderProduct extends Pivot
     {
         if (empty($value))
             return;
-        if (is_float($value))
-            $this->attributes['quantity'] = $value;
+
+        if (is_numeric($value))
+            return $this->attributes['quantity'] = (float)$value;
 
         $value = str_replace('.', '', $value);
         $this->attributes['quantity'] = (float)str_replace(',', '.', $value);

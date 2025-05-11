@@ -66,7 +66,7 @@
             <span class="input-group-text">R$</span>
             <input type="text" class="form-control js_mask_money {{ $errors->has('price') ? 'is-invalid' : '' }}"
                 name="price" id="price" placeholder="Digite o preço"
-                value="{{ old('price', $product->price ?? '') }}" autocomplete="off">
+                value="{{ old('price', number_format($product->price, 2, ',', '.') ?? '') }}" autocomplete="off">
         </div>
         @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -90,7 +90,7 @@
             <span class="input-group-text">R$</span>
             <input type="text" class="form-control js_mask_money {{ $errors->has('discount') ? 'is-invalid' : '' }}"
                 name="discount" id="discount" placeholder="Digite o preço"
-                value="{{ old('discount', $product->discount ?? '') }}" autocomplete="off">
+                value="{{ old('discount', number_format($product->discount, 2, ',', '.') ?? '') }}" autocomplete="off">
         </div>
         @error('discount')
             <div class="invalid-feedback">{{ $message }}</div>

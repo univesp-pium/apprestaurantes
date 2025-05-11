@@ -70,7 +70,7 @@
                             </div>
                             <div class="subtotal mt-2 d-flex align-items-center">
                                 Subtotal: <span class="ms-2" id="subtotal">R$
-                                    {{ number_format($product->price, 2, ',', '.') }}</span>
+                                    {{ number_format($product->price - $product->discount, 2, ',', '.') }}</span>
                             </div>
                             @if ($product->instructions->count() > 0)
                                 <hr>

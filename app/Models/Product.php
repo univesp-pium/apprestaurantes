@@ -32,16 +32,18 @@ class Product extends Model
     public function setAttribute($key, $value)
     {
         // Float numbers
+        $new_value = $value;
         if (in_array($key, $this->float_numbers) && $value) {
-            if (empty($value))
-                return;
-            if (is_float($value))
-                return $this->attributes[$key] = $value;
-
-            $value = str_replace('.', '', $value);
-            $this->attributes[$key] = (float)str_replace(',', '.', $value);
+            if (empty($value)) {
+                $new_value = $value;
+            } elseif (is_numeric($value)) {
+                $new_value = $this->attributes[$key] = (float)$value;
+            } else {
+                $value = str_replace('.', '', $value);
+                $new_value = $this->attributes[$key] = (float)str_replace(',', '.', $value);
+            }
         }
-        return parent::setAttribute($key, $value);
+        return parent::setAttribute($key, $new_value);
     }
 
     // Relationships

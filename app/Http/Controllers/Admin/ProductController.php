@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Recipe;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -87,6 +88,7 @@ class ProductController extends Controller
             $product->update($data);
         } catch (\Throwable $th) {
             $errors[] = $th->getMessage();
+            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
         }
 
         if (count($errors) == 0) {
