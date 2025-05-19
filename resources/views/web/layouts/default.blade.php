@@ -16,9 +16,9 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('home') }}">
+                <a class="navbar-brand text-light fw-bold" href="{{ route('home') }}">
                     Açougue Premium
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -36,22 +36,24 @@
                                 <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
                             </li>
                         @else
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Olá, {{ Auth::guard('client')->user()->name }}
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="{{ route('client-area.dashboard.index') }}">Minha Conta</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="{{ route('auth.logout_action') }}">Logout</a></li>
-                                    </ul>
-                                </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Olá, {{ Auth::guard('client')->user()->name }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{{ route('client-area.dashboard.index') }}">Minha
+                                            Conta</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('auth.logout_action') }}">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('client-area.cart.index') }}">
+                                <a class="nav-link text-light" href="{{ route('client-area.cart.index') }}">
                                     <i class="fa fa-shopping-cart d-none d-lg-inline" aria-hidden="true"></i>
                                     <span class="d-inline d-lg-none">Carrinho</span>
                                 </a>

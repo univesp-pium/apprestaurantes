@@ -34,6 +34,15 @@ class ProductSeeder extends Seeder
                 'quantity'      => 50,
                 'discount'      => 0,
             ],
+            [
+                'category_id'   => Category::first()->id,
+                'unit_id'       => Unit::first()->id,
+                'title'         => 'Contra File',
+                'description'   => 'Contra File é uma carne muito boa, muito gostosa.',
+                'price'         => 39.99,
+                'quantity'      => 50,
+                'discount'      => 10.00,
+            ],
         ];
 
         foreach ($products as $product) {
