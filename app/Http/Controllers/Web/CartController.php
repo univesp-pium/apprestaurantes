@@ -6,13 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderProduct;
+use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Traits\CheckTransaction;
 
 class CartController extends Controller
 {
+    use CheckTransaction;
+
     public function index()
     {
         $order = Order::where('client_id', Auth::guard('client')->user()->id)
@@ -23,11 +27,6 @@ class CartController extends Controller
             ->first();
 
         return view('web.cart.index', compact('order'));
-    }
-
-    public function confirm()
-    {
-        return view('web.cart.confirmation');
     }
 
     public function add_item(Request $request)
@@ -53,11 +52,11 @@ class CartController extends Controller
                 try {
 
                     $order_product_found->update([
-                        'quantity'      => $request->quantity,
-                        'price'         => $product->price,
-                        'discount'      => $product->discount,
-                        'subtotal'      => ($product->price - $product->discount) * $request->quantity,
-                        'observations'  => $request->observations,
+                        'quantity'                  => $request->quantity,
+                        'price'                     => $product->price,
+                        'discount'                  => $product->discount,
+                        'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
+                        'observations'              => $request->observations,
                     ]);
 
                     $totalPrice = OrderProduct::where('order_id', $order->id)->sum('subtotal');
@@ -79,7 +78,6 @@ class CartController extends Controller
                         'price'                     => $product->price,
                         'discount'                  => $product->discount,
                         'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
-                        'subtotal_with_discount'    => ($product->price - $product->discount) * $request->quantity,
                         'observations'              => $request->observations,
                     ]);
 
@@ -110,7 +108,6 @@ class CartController extends Controller
                     'price'                     => $product->price,
                     'discount'                  => $product->discount,
                     'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
-                    'subtotal_with_discount'    => ($product->price - $product->discount) * $request->quantity,
                     'observations'              => $request->observations,
                 ]);
             } catch (\Throwable $th) {
@@ -170,5 +167,35 @@ class CartController extends Controller
         }
     }
 
-    public function finish_cart(Request $request) {}
+    public function finish_cart(Request $request)
+    {
+        $success = $this->checkTransaction(function () use ($request) {
+
+            $order = Order::where('client_id', Auth::guard('client')->user()->id)
+                ->where('is_open', true)
+                ->with(['products' => function ($query) {
+                    $query->withPivot('quantity', 'price', 'discount', 'subtotal', 'observations');
+                }])
+                ->first();
+
+            $order->update([
+                'is_open' => false,
+            ]);
+
+            OrderStatus::create([
+                'status_id'     => 1,
+                'order_id'      => $order->id,
+                'user_id'       => Auth::guard('client')->id(),
+                'observation'   => 'Pedido criado pelo cliente',
+            ]);
+        });
+
+        if ($success) {
+            sweetalert()->success('Carrinho finalizado com sucesso!');
+            return redirect()->route('client-area.cart.index');
+        } else {
+            sweetalert()->error('Erro ao remover item!');
+            return redirect()->back();
+        }
+    }
 }

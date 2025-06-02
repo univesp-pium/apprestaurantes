@@ -89,7 +89,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3"></td>
-                                    <td><strong>Subtotal:</strong></td>
+                                    <td><strong>Total:</strong></td>
                                     <td>
                                         <strong>R$ {{ number_format($order->total, 2, ',', '.') }}</strong>
                                     </td>
@@ -110,7 +110,7 @@
     <div class="text-center">
         @if (isset($order) && $order->products->count() > 0)
             <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Ver mais produtos</a>
-            <a href="{{ route('client-area.cart.confirm') }}" class="btn btn-danger btn-lg mt-4">Finalizar pedido</a>
+            <a href="{{ route('client-area.cart.finish') }}" class="btn btn-danger btn-lg mt-4">Finalizar pedido</a>
         @else
             <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg mt-4">Escolher produtos</a>
         @endif

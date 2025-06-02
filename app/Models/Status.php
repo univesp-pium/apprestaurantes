@@ -12,4 +12,11 @@ class Status extends Model
         'name',
         'active',
     ];
+
+    //Relationships
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('observation')->nullable();
             $table->timestamps();
 
             //Foreign keys
             $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

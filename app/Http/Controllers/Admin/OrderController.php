@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -13,7 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.orders.index');
+        $orders = Order::paginate(15);
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -37,7 +41,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return redirect()->route('admin.orders.edit', $order);
     }
 
     /**
@@ -45,7 +49,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('admin.orders.edit', compact('order'));
+        $statuses = Status::all();
+        return view('admin.orders.edit', compact('order', 'statuses'));
     }
 
     /**
@@ -53,7 +58,25 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $errors = [];
+        DB::beginTransaction();
+
+        try {
+            $order->statuses()->syncWithoutDetaching($request->input('status_id'));
+        } catch (\Throwable $th) {
+            $errors[] = $th->getMessage();
+            dd($errors);
+        }
+
+        if (count($errors) == 0) {
+            DB::commit();
+            sweetalert()->success('Registro atualizado com sucesso!');
+            return redirect()->back();
+        } else {
+            DB::rollBack();
+            sweetalert()->error('Não foi possibile atualizar o registro!');
+            return redirect()->back();
+        }
     }
 
     /**

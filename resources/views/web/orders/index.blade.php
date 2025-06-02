@@ -26,7 +26,6 @@
                                 <tr>
                                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
                                     <td>{{ $order->products->count() }}</td>
-                                    <td>{{ $order->slug }}</td>
                                     <td>{{ $order->active ? 'Sim' : 'Não' }}</td>
                                     <td class="align-middle" style="white-space: nowrap">
                                         <a href="{{ route('client-area.orders.show', $order->id) }}"

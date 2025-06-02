@@ -19,6 +19,25 @@ class Order extends Model
     // Relationships
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot([
+            'id',
+            'product_id',
+            'order_id',
+            'price',
+            'discount',
+            'quantity',
+            'subtotal',
+            'observations',
+        ]);
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 }

@@ -13,9 +13,9 @@ class OrderProduct extends Pivot
         'product_id',
         'order_id',
         'price',
+        'discount',
         'quantity',
         'subtotal',
-        'subtotal_with_discount',
         'observations',
     ];
 
