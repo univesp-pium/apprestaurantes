@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\App;
 
-trait CheckTransaction
+trait Verifier
 {
-    public function checkTransaction(callable $callback)
+    public function verifyCode(callable $callback)
     {
         DB::beginTransaction();
 

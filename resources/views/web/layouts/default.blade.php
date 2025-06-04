@@ -30,10 +30,10 @@
                     <ul class="navbar-nav">
                         @if (!Auth::guard('client')->check())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                                <a class="nav-link text-light" href="{{ route('auth.login') }}">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('auth.register') }}">Registro</a>
+                                <a class="nav-link text-light" href="{{ route('auth.register') }}">Registro</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">

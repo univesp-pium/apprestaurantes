@@ -15,10 +15,8 @@
                             <tr>
                                 <th>Data</th>
                                 <th>Quantidade de Itens</th>
-                                <th>Ativo</th>
+                                <th>Total</th>
                                 <th width=1>Consultar</th>
-                                {{-- <th width=1>Editar</th>
-                                <th width=1>Excluir</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +24,7 @@
                                 <tr>
                                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
                                     <td>{{ $order->products->count() }}</td>
-                                    <td>{{ $order->active ? 'Sim' : 'Não' }}</td>
+                                    <td>R$ {{ number_format($order->total, 2, ',', '.') }}</td>
                                     <td class="align-middle" style="white-space: nowrap">
                                         <a href="{{ route('client-area.orders.show', $order->id) }}"
                                             class="btn btn-primary btn-sm rounded-pill">
@@ -34,24 +32,6 @@
                                             Consultar
                                         </a>
                                     </td>
-                                    {{-- <td class="align-middle" style="white-space: nowrap">
-                                        <a href="{{ route('client-area.orders.edit', $order->id) }}"
-                                            class="btn btn-primary btn-sm rounded-pill">
-                                            <i class="fas fa-edit"></i>
-                                            Editar
-                                        </a>
-                                    </td>
-                                    <td class="align-middle" style="white-space: nowrap">
-                                        <form action="{{ route('client-area.orders.destroy', $order->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="js-delete-button btn btn-danger btn-sm rounded-pill">
-                                                <i class="fas fa-trash"></i>
-                                                Excluir
-                                            </button>
-                                        </form>
-                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>

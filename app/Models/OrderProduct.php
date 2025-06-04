@@ -12,15 +12,14 @@ class OrderProduct extends Pivot
     protected $fillable = [
         'product_id',
         'order_id',
+        'quantity',
         'price',
         'discount',
-        'quantity',
         'subtotal',
         'observations',
     ];
 
     // Custom
-
     public function setQuantityAttribute($value)
     {
         if (empty($value))

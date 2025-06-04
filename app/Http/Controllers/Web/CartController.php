@@ -9,13 +9,11 @@ use App\Models\OrderProduct;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Traits\CheckTransaction;
+use App\Traits\Verifier;
 
 class CartController extends Controller
 {
-    use CheckTransaction;
+    use Verifier;
 
     public function index()
     {
@@ -31,25 +29,20 @@ class CartController extends Controller
 
     public function add_item(Request $request)
     {
-        $errors = [];
-        DB::beginTransaction();
+        $success = $this->verifyCode(function () use ($request) {
+            $request['quantity'] = str_replace(',', '.', $request->quantity);
 
-        $request['quantity'] = str_replace(',', '.', $request->quantity);
+            $product = Product::find($request->product_id);
+            if (!$product) {
+                sweetalert()->error('Produto não encontrado!');
+                return redirect()->back();
+            }
 
-        $product = Product::find($request->product_id);
-        if (!$product) {
-            sweetalert()->error('Produto não encontrado!');
-            return redirect()->back();
-        }
+            if (Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->get()->count() > 0) {
+                $order = Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->first();
+                $order_product_found = OrderProduct::where('order_id', $order->id)->where('product_id', $product->id)->first();
 
-        if (Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->get()->count() > 0) {
-            $order = Order::where('client_id', Auth::guard('client')->user()->id)->where('is_open', true)->first();
-            $order_product_found = OrderProduct::where('order_id', $order->id)->where('product_id', $product->id)->first();
-
-            // se o produto estiver presente neste pedido, atualizar
-            if ($order_product_found) {
-
-                try {
+                if ($order_product_found) {
 
                     $order_product_found->update([
                         'quantity'                  => $request->quantity,
@@ -63,14 +56,7 @@ class CartController extends Controller
                     $order->update([
                         'total' => $totalPrice,
                     ]);
-                } catch (\Throwable $th) {
-                    $errors[] = $th->getMessage();
-                    (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
-                }
-            } else {
-
-                // TODO
-                try {
+                } else {
                     OrderProduct::create([
                         'product_id'                => $product->id,
                         'order_id'                  => $order->id,
@@ -85,22 +71,14 @@ class CartController extends Controller
                     $order->update([
                         'total' => $totalPrice,
                     ]);
-                } catch (\Throwable $th) {
-                    $errors[] = $th->getMessage();
-                    (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
                 }
-            }
-        } else {
-
-            try {
+            } else {
 
                 $order =  Order::create([
                     'client_id' => Auth::guard('client')->user()->id,
-                    'total_with_discount' => ($product->price - $product->discount) * $request->quantity,
                     'total' => ($product->price - $product->discount) * $request->quantity,
                 ]);
 
-                // TODO
                 OrderProduct::create([
                     'product_id'                => $product->id,
                     'order_id'                  => $order->id,
@@ -110,18 +88,13 @@ class CartController extends Controller
                     'subtotal'                  => ($product->price - $product->discount) * $request->quantity,
                     'observations'              => $request->observations,
                 ]);
-            } catch (\Throwable $th) {
-                $errors[] = $th->getMessage();
-                (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
             }
-        }
+        });
 
-        if (count($errors) == 0) {
-            DB::commit();
+        if ($success) {
             sweetalert()->success('Item adicionado ao carrinho com sucesso!');
             return redirect()->route('client-area.cart.index');
         } else {
-            DB::rollBack();
             sweetalert()->error('Não foi possível adicionar o item ao carrinho!');
             return redirect()->back();
         }
@@ -129,39 +102,19 @@ class CartController extends Controller
 
     public function delete_item(Request $request)
     {
-        $errors = [];
-        DB::beginTransaction();
-
-        $item = OrderProduct::where('order_id', $request->order_id)->where('product_id', $request->product_id)->first();
-        $order = Order::find($request->order_id);
-
-        if (!$item) {
-            sweetalert()->error('Item não encontrado!');
-            return redirect()->back();
-        }
-
-        try {
+        $success = $this->verifyCode(function () use ($request) {
+            $item = OrderProduct::where('order_id', $request->order_id)->where('product_id', $request->product_id)->first();
             $item->delete();
-        } catch (\Throwable $th) {
-            $errors[] = $th->getMessage();
-            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
-        }
-
-        try {
+            $order = Order::find($request->order_id);
             if ($order->products->count() == 0) {
                 $order->delete();
             }
-        } catch (\Throwable $th) {
-            $errors[] = $th->getMessage();
-            (env('APP_DEBUG') == 'true' && env('APP_ENV') == 'local') ? dd($th) : Log::error($th);
-        }
+        });
 
-        if (count($errors) == 0) {
-            DB::commit();
+        if ($success) {
             sweetalert()->success('Item removido do carrinho com sucesso!');
             return redirect()->route('client-area.cart.index');
         } else {
-            DB::rollBack();
             sweetalert()->error('Erro ao remover item!');
             return redirect()->back();
         }
@@ -169,7 +122,7 @@ class CartController extends Controller
 
     public function finish_cart(Request $request)
     {
-        $success = $this->checkTransaction(function () use ($request) {
+        $success = $this->verifyCode(function () use ($request) {
 
             $order = Order::where('client_id', Auth::guard('client')->user()->id)
                 ->where('is_open', true)

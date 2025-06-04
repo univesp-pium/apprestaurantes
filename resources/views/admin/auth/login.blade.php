@@ -35,13 +35,13 @@
 
                     {{-- Submit --}}
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary w-100">
+                        <button type="submit" class="btn btn-danger w-100">
                             <i class="fas fa-sign-in-alt"></i> Entrar
                         </button>
                     </div>
 
                     {{-- Logar como cliente --}}
-                    <a href="{{ route('auth.login') }}">Login Cliente</a>
+                    <a class="text-danger w-100" href="{{ route('auth.login') }}">Login Cliente</a>
                 </form>
             </div>
         </div>

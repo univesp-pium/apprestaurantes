@@ -39,7 +39,7 @@
 
                             <!-- Botão -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-sign-in-alt me-2"></i> Entrar
                                 </button>
                             </div>
@@ -49,10 +49,10 @@
                         <div class="mt-4 text-center">
                             <p class="mb-1">Não tem uma conta?
                                 <a href="{{ route('auth.register') }}"
-                                    class="text-decoration-none text-primary fw-semibold">Cadastre-se</a>
+                                    class="text-decoration-none text-danger fw-semibold">Cadastre-se</a>
                             </p>
                             <p>
-                                <a href="#" class="text-decoration-none text-primary">Esqueceu sua senha?</a>
+                                <a href="#" class="text-decoration-none text-danger">Esqueceu sua senha?</a>
                             </p>
                         </div>
                     </div>

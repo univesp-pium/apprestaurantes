@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('order_id');
+            $table->float('quantity', 10, 3);
             $table->float('price', 10, 2);
             $table->float('discount', 10, 2)->default(0);
-            $table->float('quantity', 10, 3);
             $table->float('subtotal', 10, 2);
             $table->text('observations')->nullable();
             $table->timestamps();

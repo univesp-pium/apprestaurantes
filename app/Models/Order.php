@@ -10,9 +10,7 @@ class Order extends Model
 
     protected $fillable = [
         'client_id',
-        'discount',
         'total',
-        'total_with_discount',
         'is_open',
     ];
 
@@ -20,12 +18,11 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot([
-            'id',
             'product_id',
             'order_id',
+            'quantity',
             'price',
             'discount',
-            'quantity',
             'subtotal',
             'observations',
         ]);
