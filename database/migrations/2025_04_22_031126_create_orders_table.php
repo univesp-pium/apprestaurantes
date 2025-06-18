@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->float('total', 10, 2);
             $table->boolean('is_open')->default(true);
+            $table->boolean('is_finished')->default(false);
             $table->timestamps();
 
             //Foreign keys

@@ -122,8 +122,9 @@ class CartController extends Controller
 
     public function finish_cart(Request $request)
     {
-        $success = $this->verifyCode(function () use ($request) {
+        $order = null;
 
+        $success = $this->verifyCode(function () use ($request, &$order) {
             $order = Order::where('client_id', Auth::guard('client')->user()->id)
                 ->where('is_open', true)
                 ->with(['products' => function ($query) {
@@ -131,23 +132,25 @@ class CartController extends Controller
                 }])
                 ->first();
 
-            $order->update([
-                'is_open' => false,
-            ]);
+            if ($order) {
+                $order->update([
+                    'is_open' => false,
+                ]);
 
-            OrderStatus::create([
-                'status_id'     => 1,
-                'order_id'      => $order->id,
-                'user_id'       => Auth::guard('client')->id(),
-                'observation'   => 'Pedido criado pelo cliente',
-            ]);
+                OrderStatus::create([
+                    'status_id'     => 1,
+                    'order_id'      => $order->id,
+                    'user_id'       => Auth::guard('client')->id(),
+                    'observation'   => 'Pedido criado pelo cliente',
+                ]);
+            }
         });
 
-        if ($success) {
+        if ($success && $order) {
             sweetalert()->success('Carrinho finalizado com sucesso!');
-            return redirect()->route('client-area.cart.index');
+            return redirect()->route('client-area.orders.show', ['order' => $order->id]);
         } else {
-            sweetalert()->error('Erro ao remover item!');
+            sweetalert()->error('Erro ao finalizar o carrinho!');
             return redirect()->back();
         }
     }

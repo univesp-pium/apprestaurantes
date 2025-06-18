@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Status;
+use App\Traits\Verifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    use Verifier;
+
     /**
      * Display a listing of the resource.
      */
@@ -58,23 +61,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $errors = [];
-        DB::beginTransaction();
+        $success = $this->verifyCode(function () use ($request, $order) {
+            $order->statuses()->syncWithoutDetaching($request->status);
+        });
 
-        try {
-            $order->statuses()->syncWithoutDetaching($request->input('status_id'));
-        } catch (\Throwable $th) {
-            $errors[] = $th->getMessage();
-            dd($errors);
-        }
-
-        if (count($errors) == 0) {
-            DB::commit();
-            sweetalert()->success('Registro atualizado com sucesso!');
+        if ($success) {
+            sweetalert()->success('Status atualizado com sucesso!');
             return redirect()->back();
         } else {
-            DB::rollBack();
-            sweetalert()->error('Não foi possibile atualizar o registro!');
+            sweetalert()->error('Não foi possível atualizar o status!');
             return redirect()->back();
         }
     }

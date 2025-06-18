@@ -12,6 +12,7 @@ class Order extends Model
         'client_id',
         'total',
         'is_open',
+        'is_finished',
     ];
 
     // Relationships
@@ -30,7 +31,12 @@ class Order extends Model
 
     public function statuses()
     {
-        return $this->belongsToMany(Status::class);
+        return $this->belongsToMany(Status::class)->withPivot([
+            'status_id',
+            'order_id',
+            'user_id',
+            'observation',
+        ]);
     }
 
     public function client()
